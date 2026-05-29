@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SleepWell Studio — Science-backed sleep wellness platform. Sleep education, sleep music, wellness nutrition, and AI sleep coach. Start your journey to better sleep.">
+  <meta name="keywords" content="sleep wellness, better sleep, sleep music, sleep science, natural sleep, wellness">
+  <meta property="og:title" content="SleepWell Studio — Sleep Naturally, Live Fully">
+  <meta property="og:description" content="Science-backed sleep wellness platform with expert content, sleep music, and AI coach.">
+  <meta property="og:type" content="website">
+  <title>SleepWell Studio — Sleep Naturally, Live Fully</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../shared/css/design-system.css">
+
+  <style>
+    /* Global nav English override */
+    .nav-links a { font-size: 0.82rem; }
+
+    /* Hero */
+    .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding-top: var(--nav-h); overflow: hidden; position: relative; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, var(--clr-cream) 0%, var(--clr-sand) 50%, rgba(155,175,155,0.12) 100%); z-index: 0; }
+    .hero-content { position: relative; z-index: 1; padding: var(--space-xxl) var(--space-xl) var(--space-xxl) max(var(--space-xl), calc((100vw - var(--max-w)) / 2 + var(--space-xl))); }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--clr-sage-deep); margin-bottom: var(--space-md); }
+    .hero-eyebrow::before { content: ''; display: block; width: 28px; height: 1.5px; background: var(--clr-sage); }
+    .hero h1 { font-family: var(--font-display); font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 300; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: var(--space-md); }
+    .hero h1 em { font-style: italic; color: var(--clr-sage-deep); }
+    .hero-desc { font-size: 1.05rem; color: var(--clr-text-secondary); max-width: 420px; line-height: 1.8; margin-bottom: var(--space-lg); }
+    .hero-visual { position: relative; z-index: 1; height: 100vh; display: flex; align-items: center; justify-content: center; }
+    .hero-circle { width: clamp(300px, 40vw, 560px); height: clamp(300px, 40vw, 560px); border-radius: 50%; background: linear-gradient(135deg, #C8D8C0 0%, #A0BA9A 40%, #88A882 100%); display: flex; align-items: center; justify-content: center; animation: float 8s ease-in-out infinite; box-shadow: 0 40px 100px rgba(74,103,65,0.2); position: relative; }
+    .hero-circle-inner { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; color: rgba(255,255,255,0.9); }
+    .hero-moon { font-size: clamp(4rem, 8vw, 8rem); line-height: 1; }
+    .hero-circle-text { font-family: var(--font-display); font-size: clamp(1rem, 2vw, 1.4rem); font-weight: 300; letter-spacing: 0.1em; color: rgba(255,255,255,0.8); margin-top: 0.5rem; }
+    .hero-deco-1 { position: absolute; width: 120px; height: 120px; background: var(--clr-lavender); border-radius: 50%; opacity: 0.4; top: 15%; right: 5%; animation: float 6s ease-in-out infinite 1s; }
+    .hero-deco-2 { position: absolute; width: 80px; height: 80px; background: var(--clr-blush); border-radius: 50%; opacity: 0.4; bottom: 20%; right: 20%; animation: float 7s ease-in-out infinite 2s; }
+    .hero-stats { display: flex; gap: var(--space-lg); margin-top: var(--space-xl); padding-top: var(--space-lg); border-top: 1px solid var(--clr-sand); }
+    .stat-item .num { font-family: var(--font-display); font-size: 2rem; font-weight: 600; color: var(--clr-night); }
+    .stat-item .label { font-size: 0.78rem; color: var(--clr-text-muted); }
+
+    /* Features */
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
+    .feature-card { background: var(--clr-bg-card); border-radius: var(--radius-lg); padding: var(--space-lg); box-shadow: var(--shadow-sm); transition: var(--transition); position: relative; overflow: hidden; }
+    .feature-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--clr-sage), var(--clr-lavender)); transform: scaleX(0); transform-origin: left; transition: var(--transition); }
+    .feature-card:hover { box-shadow: var(--shadow-md); transform: translateY(-6px); }
+    .feature-card:hover::after { transform: scaleX(1); }
+    .feature-icon { width: 56px; height: 56px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin-bottom: var(--space-md); }
+
+    /* Blog grid */
+    .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
+
+    /* Audio grid */
+    .audio-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-sm); }
+
+    /* Shop grid */
+    .shop-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-md); }
+    .shop-card { background: var(--clr-bg-card); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); transition: var(--transition); }
+    .shop-card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); }
+    .shop-img { width: 100%; aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; font-size: 3rem; }
+    .shop-info { padding: 1rem; }
+    .shop-name { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.25rem; }
+    .shop-desc { font-size: 0.78rem; color: var(--clr-text-muted); margin-bottom: 0.75rem; line-height: 1.5; }
+    .shop-price { font-family: var(--font-display); font-size: 1.2rem; color: var(--clr-night); font-weight: 600; }
+    .shop-action { width: 100%; text-align: center; padding: 0.6rem; background: var(--clr-night); color: white; font-size: 0.8rem; font-weight: 600; border-radius: 0 0 var(--radius-lg) var(--radius-lg); transition: var(--transition); display: block; }
+    .shop-action:hover { background: var(--clr-moss); }
+
+    /* PayPal section */
+    .paypal-section { background: #003087; border-radius: var(--radius-lg); padding: var(--space-lg); color: white; display: flex; align-items: center; gap: var(--space-xl); flex-wrap: wrap; }
+
+    /* Qwen promo global */
+    .qwen-promo-global { background: linear-gradient(135deg, var(--clr-night), var(--clr-moss)); border-radius: var(--radius-lg); padding: var(--space-xl); color: var(--clr-cream); }
+    .qwen-grid { display: grid; grid-template-columns: 1fr auto; gap: var(--space-xl); align-items: center; }
+    .qwen-code-box { background: rgba(249,245,239,0.1); border: 1px solid rgba(249,245,239,0.2); border-radius: var(--radius-md); padding: 1.25rem 2rem; text-align: center; }
+    .qwen-code { font-family: monospace; font-size: 1.8rem; font-weight: 700; letter-spacing: 0.12em; color: var(--clr-gold); display: block; margin: 0.5rem 0; }
+    .qwen-code-label { font-size: 0.72rem; opacity: 0.6; letter-spacing: 0.08em; }
+
+    @media (max-width: 1024px) { .features-grid { grid-template-columns: 1fr 1fr; } .blog-grid { grid-template-columns: 1fr 1fr; } .shop-grid { grid-template-columns: 1fr 1fr; } .audio-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 768px) { .hero { grid-template-columns: 1fr; min-height: auto; padding-bottom: var(--space-xl); } .hero-visual { display: none; } .hero-content { padding: calc(var(--nav-h) + var(--space-xl)) var(--space-md) var(--space-xl); } .features-grid { grid-template-columns: 1fr; } .blog-grid { grid-template-columns: 1fr; } .shop-grid { grid-template-columns: 1fr 1fr; } .qwen-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 480px) { .shop-grid { grid-template-columns: 1fr; } .hero-stats { flex-direction: column; gap: var(--space-sm); } }
+  </style>
+  <!-- Analytics -->
+  <script>window.GA4_MEASUREMENT_ID='G-NCY473QPD1';</script>
+  <script src="../shared/js/analytics.js"></script>
+</head>
+<body>
+
+<!-- Navigation (English) -->
+<nav class="site-nav" id="siteNav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <span class="logo-main">SleepWell Studio</span>
+      <span class="logo-sub">睡眠养生 · Science-backed</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="science.html">Sleep Science</a>
+      <a href="music.html">Sound Library</a>
+      <a href="food.html">Wellness Diet</a>
+      <a href="shop.html">Shop</a>
+      <a href="ai-assistant.html" class="nav-ai">🤖 AI Coach</a>
+      <a href="about.html">About</a>
+    </div>
+    <div class="nav-actions">
+      <a href="../cn/index.html" class="nav-lang-switch">🇨🇳 中文</a>
+      <div class="nav-burger" id="navBurger"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">🏠 Home</a>
+  <a href="science.html">🔬 Sleep Science</a>
+  <a href="music.html">🎵 Sound Library</a>
+  <a href="food.html">🌿 Wellness Diet</a>
+  <a href="shop.html">🛍 Shop</a>
+  <a href="ai-assistant.html">🤖 AI Coach</a>
+  <a href="about.html">💬 About</a>
+</div>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-content animate-fade-up">
+    <div class="hero-eyebrow">Sleep Wellness · Ancient Wisdom × Modern Science</div>
+    <h1>Sleep with<br><em>Nature</em></h1>
+    <p class="hero-desc">
+      Evidence-based sleep improvement, traditional wellness wisdom, and immersive sleep soundscapes — crafted for your journey to deeper, more restorative rest.
+    </p>
+    <div class="hero-cta" style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+      <a href="science.html" class="btn btn-primary">Explore Sleep Science →</a>
+      <a href="music.html" class="btn btn-outline">Free Sound Preview</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item"><div class="num">200+</div><div class="label">Articles</div></div>
+      <div class="stat-item"><div class="num">50+</div><div class="label">Sleep Sounds</div></div>
+      <div class="stat-item"><div class="num">100+</div><div class="label">Wellness Recipes</div></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-circle">
+      <div class="hero-circle-inner">
+        <div class="hero-moon">🌙</div>
+        <div class="hero-circle-text">Sleep · Heal · Restore</div>
+      </div>
+    </div>
+    <div class="hero-deco-1"></div>
+    <div class="hero-deco-2"></div>
+  </div>
+</section>
+
+<!-- Disclaimer banner -->
+<div style="background: var(--clr-bg-section); padding: 1rem 0;">
+  <div class="container">
+    <div class="disclaimer-banner">
+      ⚠️ <strong>Important:</strong> All content on this site is for general wellness and educational purposes only, and does not constitute medical advice, diagnosis, or treatment. Always consult a qualified healthcare professional for medical concerns. See our <a href="disclaimer.html" style="color:var(--clr-sage-deep);text-decoration:underline;">Disclaimer</a> and <a href="privacy.html" style="color:var(--clr-sage-deep);text-decoration:underline;">Privacy Policy</a>.
+    </div>
+  </div>
+</div>
+
+<!-- Features -->
+<section class="section" style="background: var(--clr-bg-section);">
+  <div class="container">
+    <div style="text-align:center; margin-bottom: var(--space-xl);">
+      <div class="label-tag reveal">What We Offer</div>
+      <h2 class="heading-h2 reveal" style="margin-top:0.75rem;">Your Complete Sleep Wellness Journey</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon" style="background:rgba(155,175,155,0.15);">🔬</div>
+        <h3 class="heading-h3" style="margin-bottom:0.75rem;">Sleep Science</h3>
+        <p style="font-size:0.9rem;color:var(--clr-text-secondary);line-height:1.8;">Deep-dive blog posts on sleep cycles, circadian rhythms, and science-backed habits for better rest.</p>
+        <a href="science.html" style="display:inline-block;margin-top:1rem;font-size:0.85rem;font-weight:600;color:var(--clr-sage-deep);">Read Articles →</a>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon" style="background:rgba(197,184,212,0.15);">🎵</div>
+        <h3 class="heading-h3" style="margin-bottom:0.75rem;">Sound Library</h3>
+        <p style="font-size:0.9rem;color:var(--clr-text-secondary);line-height:1.8;">Binaural beats, white noise, nature soundscapes and guided meditations — stream or download.</p>
+        <a href="music.html" style="display:inline-block;margin-top:1rem;font-size:0.85rem;font-weight:600;color:var(--clr-sage-deep);">Explore Sounds →</a>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon" style="background:rgba(232,201,190,0.15);">🌿</div>
+        <h3 class="heading-h3" style="margin-bottom:0.75rem;">Wellness Diet</h3>
+        <p style="font-size:0.9rem;color:var(--clr-text-secondary);line-height:1.8;">Traditional herbal teas, nourishing recipes and dietary guidance rooted in classical wellness traditions.</p>
+        <a href="food.html" style="display:inline-block;margin-top:1rem;font-size:0.85rem;font-weight:600;color:var(--clr-sage-deep);">View Recipes →</a>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon" style="background:rgba(201,169,110,0.15);">🛍</div>
+        <h3 class="heading-h3" style="margin-bottom:0.75rem;">Curated Shop</h3>
+        <p style="font-size:0.9rem;color:var(--clr-text-secondary);line-height:1.8;">Hand-picked sleep essentials — natural bedding, aromatherapy, and sleep environment tools.</p>
+        <a href="shop.html" style="display:inline-block;margin-top:1rem;font-size:0.85rem;font-weight:600;color:var(--clr-sage-deep);">Browse Shop →</a>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon" style="background:rgba(155,175,155,0.15);">🤖</div>
+        <h3 class="heading-h3" style="margin-bottom:0.75rem;">AI Sleep Coach</h3>
+        <p style="font-size:0.9rem;color:var(--clr-text-secondary);line-height:1.8;">Powered by Qwen AI — your 24/7 wellness advisor for personalized sleep and lifestyle suggestions.</p>
+        <a href="ai-assistant.html" style="display:inline-block;margin-top:1rem;font-size:0.85rem;font-weight:600;color:var(--clr-sage-deep);">Ask the Coach →</a>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon" style="background:rgba(197,184,212,0.15);">📱</div>
+        <h3 class="heading-h3" style="margin-bottom:0.75rem;">Qwen App Promo</h3>
+        <p style="font-size:0.9rem;color:var(--clr-text-secondary);line-height:1.8;">Download the Tongyi Qwen App with our referral code for an enhanced AI sleep assistant experience.</p>
+        <a href="#qwen-promo" style="display:inline-block;margin-top:1rem;font-size:0.85rem;font-weight:600;color:var(--clr-sage-deep);">Get Code →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Latest Articles -->
+<section class="section">
+  <div class="container">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:var(--space-lg);flex-wrap:wrap;gap:1rem;">
+      <div><div class="label-tag reveal">Featured Articles</div><h2 class="heading-h2 reveal" style="margin-top:0.75rem;">Latest Sleep Science</h2></div>
+      <a href="science.html" class="btn btn-outline reveal">View All Articles</a>
+    </div>
+    <div class="blog-grid">
+      <article class="card reveal">
+        <div class="card-img img-placeholder nature-bg-1" style="display:flex;align-items:center;justify-content:center;font-size:3rem;min-height:200px;">🌙</div>
+        <div class="card-body">
+          <div style="display:flex;gap:0.5rem;margin-bottom:0.75rem;"><span class="tag tag-sage">Sleep Science</span><span class="tag">5 min read</span></div>
+          <h3 class="heading-h3" style="margin-bottom:0.5rem;">Why Deep Sleep Is Your Body's Reset Button</h3>
+          <p style="font-size:0.85rem;color:var(--clr-text-secondary);line-height:1.7;margin-bottom:1rem;">During N3 deep sleep, your brain clears metabolic waste, consolidates memories, and your immune system strengthens…</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:0.75rem;color:var(--clr-text-muted);">May 28, 2026</span><a href="article.html" style="font-size:0.82rem;font-weight:600;color:var(--clr-sage-deep);">Read More →</a></div>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="card-img img-placeholder nature-bg-2" style="display:flex;align-items:center;justify-content:center;font-size:3rem;min-height:200px;">🫖</div>
+        <div class="card-body">
+          <div style="display:flex;gap:0.5rem;margin-bottom:0.75rem;"><span class="tag tag-lavender">Wellness</span><span class="tag">8 min read</span></div>
+          <h3 class="heading-h3" style="margin-bottom:0.5rem;">5 Traditional Herbal Teas for a Calmer Night</h3>
+          <p style="font-size:0.85rem;color:var(--clr-text-secondary);line-height:1.7;margin-bottom:1rem;">From chamomile to longan and lotus seed brew, these time-honored herbal preparations help ease your mind into sleep…</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:0.75rem;color:var(--clr-text-muted);">May 25, 2026</span><a href="article.html" style="font-size:0.82rem;font-weight:600;color:var(--clr-sage-deep);">Read More →</a></div>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="card-img img-placeholder nature-bg-3" style="display:flex;align-items:center;justify-content:center;font-size:3rem;min-height:200px;">⏰</div>
+        <div class="card-body">
+          <div style="display:flex;gap:0.5rem;margin-bottom:0.75rem;"><span class="tag tag-blush">Lifestyle</span><span class="tag">6 min read</span></div>
+          <h3 class="heading-h3" style="margin-bottom:0.5rem;">The 21-Day Circadian Rhythm Reset Challenge</h3>
+          <p style="font-size:0.85rem;color:var(--clr-text-secondary);line-height:1.7;margin-bottom:1rem;">A disrupted body clock is the root of most modern sleep problems. This structured 21-day plan helps you rebuild…</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:0.75rem;color:var(--clr-text-muted);">May 20, 2026</span><a href="article.html" style="font-size:0.82rem;font-weight:600;color:var(--clr-sage-deep);">Read More →</a></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Sound Library Preview -->
+<section class="section" style="background: var(--clr-bg-section);">
+  <div class="container">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:var(--space-lg);flex-wrap:wrap;gap:1rem;">
+      <div><div class="label-tag reveal">Sound Library</div><h2 class="heading-h2 reveal" style="margin-top:0.75rem;">Drift into Deep Rest</h2></div>
+      <a href="music.html" class="btn btn-outline reveal">Explore All Sounds</a>
+    </div>
+    <div class="audio-grid">
+      <div class="audio-card reveal" data-audio=""><div class="audio-art nature-bg-1">🌿</div><div class="audio-info"><div class="title">Rainforest Morning · Nature Soundscape</div><div class="meta">Nature White Noise · 45 min</div><div class="progress-bar" style="margin-top:0.5rem;"><div class="progress-fill" style="width:0%"></div></div></div><div class="audio-controls"><div class="play-btn"><svg viewBox="0 0 16 16"><polygon points="4,2 14,8 4,14"/></svg></div></div></div>
+      <div class="audio-card reveal" data-audio=""><div class="audio-art nature-bg-2">🎧</div><div class="audio-info"><div class="title">432Hz Deep Relaxation · Binaural Beats</div><div class="meta">Meditation Audio · 60 min</div><div class="progress-bar" style="margin-top:0.5rem;"><div class="progress-fill" style="width:0%"></div></div></div><div class="audio-controls"><div class="play-btn"><svg viewBox="0 0 16 16"><polygon points="4,2 14,8 4,14"/></svg></div></div></div>
+      <div class="audio-card reveal" data-audio=""><div class="audio-art nature-bg-4">🌊</div><div class="audio-info"><div class="title">Ocean Waves · Deep Sea Meditation</div><div class="meta">Natural Sounds · 90 min</div><div class="progress-bar" style="margin-top:0.5rem;"><div class="progress-fill" style="width:0%"></div></div></div><div class="audio-controls"><div class="play-btn"><svg viewBox="0 0 16 16"><polygon points="4,2 14,8 4,14"/></svg></div></div></div>
+      <div class="audio-card reveal" style="border: 1.5px solid var(--clr-gold);" data-audio=""><div class="audio-art" style="background:linear-gradient(135deg,#F0E0B0,#C9A96E);">🏆</div><div class="audio-info"><div class="title">🔓 Complete Sleep Audio Bundle</div><div class="meta">12 tracks · Lossless Download · $9.99</div><div class="progress-bar" style="margin-top:0.5rem;"><div class="progress-fill" style="width:0%"></div></div></div><div class="audio-controls"><a href="music.html#purchase" class="btn btn-gold" style="padding:0.5rem 0.85rem;font-size:0.78rem;">Buy Now</a></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Shop Preview -->
+<section class="section">
+  <div class="container">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:var(--space-lg);flex-wrap:wrap;gap:1rem;">
+      <div><div class="label-tag reveal">Curated Shop</div><h2 class="heading-h2 reveal" style="margin-top:0.75rem;">Sleep Essentials</h2><p style="font-size:0.85rem;color:var(--clr-text-muted);margin-top:0.5rem;">All products link to verified Alibaba/1688 listings</p></div>
+      <a href="shop.html" class="btn btn-outline reveal">View All Products</a>
+    </div>
+    <div class="shop-grid">
+      <div class="shop-card reveal"><div class="shop-img nature-bg-1">🛏</div><div class="shop-info"><div class="shop-name">Natural Latex Pillow</div><div class="shop-desc">100% Thai latex, breathable, ergonomic neck support</div><div class="shop-price">From $38</div></div><a href="https://www.alibaba.com/trade/search?SearchText=natural+latex+pillow" target="_blank" rel="noopener" class="shop-action">Shop on Alibaba →</a></div>
+      <div class="shop-card reveal"><div class="shop-img nature-bg-2">🕯</div><div class="shop-info"><div class="shop-name">Lavender Soy Candle</div><div class="shop-desc">French lavender essential oil, soy wax, 40-hr burn</div><div class="shop-price">From $12</div></div><a href="https://www.alibaba.com/trade/search?SearchText=lavender+soy+candle" target="_blank" rel="noopener" class="shop-action">Shop on Alibaba →</a></div>
+      <div class="shop-card reveal"><div class="shop-img" style="background:linear-gradient(135deg,#DDD0EE,#B8A8CC);">😴</div><div class="shop-info"><div class="shop-name">3D Sleep Eye Mask</div><div class="shop-desc">Contoured silk, 100% blackout, includes ear plugs</div><div class="shop-price">From $8</div></div><a href="https://www.alibaba.com/trade/search?SearchText=sleep+eye+mask+blackout" target="_blank" rel="noopener" class="shop-action">Shop on Alibaba →</a></div>
+      <div class="shop-card reveal"><div class="shop-img nature-bg-4">🔊</div><div class="shop-info"><div class="shop-name">White Noise Machine</div><div class="shop-desc">30 nature sounds, sleep timer, USB-C charging</div><div class="shop-price">From $22</div></div><a href="https://www.alibaba.com/trade/search?SearchText=white+noise+machine" target="_blank" rel="noopener" class="shop-action">Shop on Alibaba →</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- Payment Methods -->
+<section class="section-sm" style="background: var(--clr-bg-section);">
+  <div class="container">
+    <div class="paypal-section reveal" style="margin-bottom:1.5rem;">
+      <div>
+        <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:0.5rem;">Secure Payment</div>
+        <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:0.5rem;">Pay Securely via PayPal</h3>
+        <p style="font-size:0.85rem;color:rgba(255,255,255,0.7);line-height:1.7;max-width:400px;">All digital product purchases are processed through PayPal for maximum security and buyer protection. Physical products link to Alibaba listings.</p>
+      </div>
+      <div style="text-align:center;">
+        <div style="background:rgba(255,255,255,0.1);border-radius:var(--radius-md);padding:1.5rem 2rem;">
+          <div style="font-size:2rem;margin-bottom:0.5rem;">🅿️</div>
+          <div style="font-weight:700;font-size:1rem;margin-bottom:0.25rem;">PayPal</div>
+          <div style="font-size:0.78rem;opacity:0.6;">Buyer Protection Included</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hang Seng Bank HKD Transfer -->
+    <div class="reveal" style="background: var(--clr-bg-card); border-radius: var(--radius-lg); padding: var(--space-lg); box-shadow: var(--shadow-sm);">
+      <div style="display: grid; grid-template-columns: 1fr auto; gap: var(--space-xl); align-items: center; flex-wrap: wrap;">
+        <div>
+          <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.75rem;">
+            <span style="font-size:1.8rem;">🏦</span>
+            <div>
+              <h3 style="font-size:1.1rem;font-weight:700;">Direct Bank Transfer</h3>
+              <span style="font-size:0.78rem;color:var(--clr-text-muted);">Hang Seng Bank · HKD</span>
+            </div>
+          </div>
+          <p style="font-size:0.85rem;color:var(--clr-text-secondary);line-height:1.7;max-width:400px;">
+            Prefer bank transfer? Scan the QR code to pay via Hang Seng Bank in HKD. After payment, email your transaction reference to <strong>lianglinyuan666@gmail.com</strong> to receive your digital download link.
+          </p>
+        </div>
+        <div style="text-align:center;">
+          <img src="../shared/assets/hsbc-hkd-qr.jpg" alt="Hang Seng Bank HKD Transfer QR" style="max-width:180px;width:100%;border-radius:12px;box-shadow:var(--shadow-md);">
+          <p style="font-size:0.72rem;color:var(--clr-text-muted);margin-top:0.5rem;">Scan to Pay (HKD)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Qwen Promo Global -->
+<section class="section-sm" id="qwen-promo">
+  <div class="container">
+    <div class="qwen-promo-global reveal">
+      <div class="qwen-grid">
+        <div>
+          <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(249,245,239,0.5);margin-bottom:0.75rem;">Tongyi Qwen App · Referral Program</div>
+          <h2 style="font-family:var(--font-display);font-size:clamp(1.6rem,3vw,2.4rem);font-weight:300;color:var(--clr-cream);margin-bottom:1rem;">Upgrade Your AI Sleep Experience</h2>
+          <p style="font-size:0.9rem;color:rgba(249,245,239,0.7);line-height:1.8;max-width:480px;margin-bottom:1.5rem;">Download the Tongyi Qwen App and unlock a more powerful AI sleep coach with personalized memory, faster responses, and deeper wellness insights.</p>
+          <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+            <a href="https://tongyi.aliyun.com/qianwen/download" target="_blank" rel="noopener" id="qwenGlobalDL" class="btn btn-gold">📱 Download & Earn</a>
+            <a href="ai-assistant.html" class="btn" style="background:rgba(249,245,239,0.1);color:var(--clr-cream);border:1px solid rgba(249,245,239,0.2);">Learn More</a>
+          </div>
+          <p style="font-size:0.72rem;color:rgba(249,245,239,0.4);margin-top:1rem;">Earn commission for every signup through this page → Qwen Affiliate Program</p>
+        </div>
+        <div class="qwen-code-box">
+          <div class="qwen-code-label">Your Referral Code</div>
+          <code class="qwen-code">SLEEP2026</code>
+          <div class="qwen-code-label">Enter when signing up for Qwen App</div>
+          <button class="btn btn-gold" style="margin-top:1rem;padding:0.5rem 1.25rem;font-size:0.82rem;" onclick="navigator.clipboard.writeText('SLEEP2026').then(()=>{this.textContent='✓ Copied!'})">Copy Code</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer (English) -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo-main">SleepWell Studio</div>
+        <p>Science-backed sleep wellness for a calmer, more restorative life.</p>
+        <div style="margin-top:1.5rem;font-size:0.78rem;color:rgba(249,245,239,0.35);line-height:1.8;">
+          All content is for informational purposes only.<br>Not a substitute for professional medical advice.
+        </div>
+      </div>
+      <div class="footer-links"><h4>Explore</h4><a href="science.html">Sleep Science</a><a href="music.html">Sound Library</a><a href="food.html">Wellness Diet</a><a href="shop.html">Shop</a></div>
+      <div class="footer-links"><h4>AI Services</h4><a href="ai-assistant.html">AI Sleep Coach</a><a href="#qwen-promo">Qwen App Promo</a></div>
+      <div class="footer-links"><h4>Company</h4><a href="about.html">About Us</a><a href="disclaimer.html">Disclaimer</a><a href="privacy.html">Privacy Policy</a><a href="../cn/index.html">🇨🇳 中文版</a></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 SleepWell Studio. All rights reserved.</span>
+      <span>PayPal Secured · HTTPS Encrypted</span>
+    </div>
+  </div>
+</footer>
+
+<!-- AI Chat (English) -->
+<div class="ai-chat-fab">
+  <div class="ai-chat-window">
+    <div class="chat-header"><div class="chat-header-icon">🌿</div><div class="chat-header-text"><div class="name">Mianshi · AI Sleep Coach</div><div class="status">Powered by Qwen AI · Wellness Only</div></div></div>
+    <div class="chat-messages"></div>
+    <div style="padding:0.5rem;background:#F8F7F5;font-size:0.68rem;color:#AAA;text-align:center;border-top:1px solid #F0EDED;">For reference only. Not medical advice.</div>
+    <div class="chat-input-area"><input type="text" placeholder="Ask about sleep, wellness…"/><button class="chat-send-btn"><svg viewBox="0 0 16 16"><path d="M2 8L14 2l-2 12-4-4-6 2z"/></svg></button></div>
+  </div>
+  <button class="ai-chat-btn" title="AI Sleep Coach"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg></button>
+</div>
+
+<script src="../shared/js/main.js"></script>
+</body>
+</html>
