@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SleepWell Shop — Curated sleep-enhancing products. Air purifiers, aromatherapy, silk eye masks, and more. Redirects to Alibaba for secure purchase.">
+  <title>Shop — SleepWell Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../shared/css/design-system.css">
+  <style>
+    .page-hero { padding: calc(var(--nav-h) + var(--space-xl)) 0 var(--space-xl); background: linear-gradient(135deg, var(--clr-cream) 0%, var(--clr-sand) 100%); text-align: center; }
+    .shop-main-grid { display: grid; grid-template-columns: 220px 1fr; gap: var(--space-xl); align-items: start; }
+    .shop-sidebar { position: sticky; top: calc(var(--nav-h) + 1.5rem); }
+    .shop-filter-card { background: var(--clr-bg-card); border-radius: var(--radius-lg); padding: var(--space-md); box-shadow: var(--shadow-sm); margin-bottom: 1rem; }
+    .shop-filter-card h4 { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--clr-text-muted); margin-bottom: 0.75rem; }
+    .filter-item { display: flex; align-items: center; gap: 0.6rem; padding: 0.4rem 0; cursor: pointer; font-size: 0.85rem; color: var(--clr-text-secondary); transition: var(--transition); border-radius: var(--radius-sm); }
+    .filter-item:hover { color: var(--clr-sage-deep); }
+    .filter-item.active { color: var(--clr-sage-deep); font-weight: 600; }
+    .filter-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--clr-sand); flex-shrink: 0; }
+    .filter-item.active .filter-dot { background: var(--clr-sage); }
+
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: var(--space-md); }
+    .product-card { background: var(--clr-bg-card); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); transition: var(--transition); }
+    .product-card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); }
+    .product-img { width: 100%; aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; position: relative; }
+    .product-badge { position: absolute; top: 0.75rem; left: 0.75rem; background: var(--clr-sage); color: white; font-size: 0.65rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: var(--radius-pill); }
+    .product-body { padding: 1rem; }
+    .product-name { font-weight: 600; font-size: 0.92rem; margin-bottom: 0.3rem; }
+    .product-desc { font-size: 0.78rem; color: var(--clr-text-secondary); line-height: 1.6; margin-bottom: 0.75rem; }
+    .product-footer { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; background: var(--clr-bg-section); border-top: 1px solid var(--clr-sand); }
+    .product-price { font-family: var(--font-display); font-size: 1.15rem; font-weight: 600; }
+    .ali-btn { display: inline-flex; align-items: center; gap: 0.3rem; background: #FF6A00; color: white; font-size: 0.75rem; font-weight: 600; padding: 0.4rem 0.8rem; border-radius: var(--radius-pill); transition: var(--transition); }
+    .ali-btn:hover { background: #E85A00; transform: scale(1.04); }
+
+    .ali-notice { background: rgba(255,106,0,0.06); border: 1px solid rgba(255,106,0,0.15); border-radius: var(--radius-md); padding: 0.75rem 1rem; font-size: 0.78rem; color: #8A4500; margin-bottom: var(--space-lg); display: flex; align-items: center; gap: 0.5rem; }
+
+    @media (max-width: 768px) { .shop-main-grid { grid-template-columns: 1fr; } .shop-sidebar { position: static; } }
+  </style>
+  <script>window.GA4_MEASUREMENT_ID='G-NCY473QPD1';</script>
+  <script src="../shared/js/analytics.js"></script>
+</head>
+<body>
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><span class="logo-main">SleepWell <em style="font-weight:300;">Studio</em></span><span class="logo-sub">Mindful Sleep & Wellness</span></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a><a href="shop.html" class="active">Shop</a><a href="index.html#science">Science</a>
+      <a href="index.html#music">Soundscapes</a><a href="about.html">About</a>
+    </div>
+    <div class="nav-actions">
+      <a href="../cn/shop.html" class="nav-lang-switch">🇨🇳 中文</a>
+      <div class="nav-burger" id="navBurger"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">🏠 Home</a><a href="shop.html">🛍 Shop</a><a href="index.html#science">🔬 Science</a>
+  <a href="index.html#music">🎵 Soundscapes</a><a href="about.html">💬 About</a>
+</div>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="label-tag animate-fade-up">Curated Collection</div>
+    <h1 class="heading-display animate-fade-up" style="margin-top:0.75rem;">Sleep Essentials</h1>
+    <p style="font-size:1rem;color:var(--clr-text-secondary);max-width:480px;margin:1rem auto;line-height:1.8;" class="animate-fade-up">Each product handpicked for restful sleep. Click through to Alibaba for secure purchase.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="ali-notice reveal">
+      🔗 <strong>Purchase Note:</strong> All products redirect to Alibaba.com. SleepWell Studio does not process payments or fulfillment directly.
+    </div>
+
+    <div class="products-grid">
+      <!-- Ionizer Product -->
+      <div class="product-card reveal">
+        <div class="product-img" style="background:url('../cn/images/ionizer-01.jpg') center/cover no-repeat;"><span class="product-badge">Best Seller</span></div>
+        <div class="product-body">
+          <div class="product-name">Negative Ion Air Purifier</div>
+          <div class="product-desc">300M negative ion generator, plasma purification. Removes formaldehyde, smoke & odors. Ideal for bedroom air quality. 1pc MOQ, ships from Anhui, China.</div>
+        </div>
+        <div class="product-footer">
+          <span class="product-price">$125+</span>
+          <a href="https://detail.1688.com/offer/783193552287.html" target="_blank" rel="noopener" class="ali-btn">🛒 Alibaba</a>
+        </div>
+      </div>
+
+      <!-- Placeholder products -->
+      <div class="product-card reveal">
+        <div class="product-img nature-bg-1">🛏</div>
+        <div class="product-body">
+          <div class="product-name">Natural Latex Pillow</div>
+          <div class="product-desc">100% Thai natural latex, breathable and supportive. Anti-bacterial and dust-mite resistant.</div>
+        </div>
+        <div class="product-footer">
+          <span class="product-price">$38+</span>
+          <a href="https://www.alibaba.com/trade/search?fsb=y&IndexArea=product_en&SearchText=latex+pillow+natural" target="_blank" rel="noopener" class="ali-btn">🛒 Alibaba</a>
+        </div>
+      </div>
+
+      <div class="product-card reveal">
+        <div class="product-img nature-bg-2">🕯</div>
+        <div class="product-body">
+          <div class="product-name">Lavender Soy Candle</div>
+          <div class="product-desc">French lavender essential oil, natural soy wax. ~40hr burn time. Perfect pre-sleep ambiance.</div>
+        </div>
+        <div class="product-footer">
+          <span class="product-price">$12+</span>
+          <a href="https://www.alibaba.com/trade/search?fsb=y&IndexArea=product_en&SearchText=lavender+soy+candle" target="_blank" rel="noopener" class="ali-btn">🛒 Alibaba</a>
+        </div>
+      </div>
+
+      <div class="product-card reveal">
+        <div class="product-img" style="background:linear-gradient(135deg,#DDD0EE,#B8A8CC);">😴</div>
+        <div class="product-body">
+          <div class="product-name">3D Silk Sleep Mask</div>
+          <div class="product-desc">Mulberry silk, 3D contoured design. 100% blackout with zero eye pressure. Travel-friendly.</div>
+        </div>
+        <div class="product-footer">
+          <span class="product-price">$8+</span>
+          <a href="https://www.alibaba.com/trade/search?fsb=y&IndexArea=product_en&SearchText=silk+sleep+mask+3d" target="_blank" rel="noopener" class="ali-btn">🛒 Alibaba</a>
+        </div>
+      </div>
+
+      <div class="product-card reveal">
+        <div class="product-img nature-bg-3">🌫</div>
+        <div class="product-body">
+          <div class="product-name">Essential Oil Diffuser</div>
+          <div class="product-desc">Ultrasonic mist, 7-color mood light, auto shut-off timer. Pair with lavender or rosemary oils.</div>
+        </div>
+        <div class="product-footer">
+          <span class="product-price">$20+</span>
+          <a href="https://www.alibaba.com/trade/search?fsb=y&IndexArea=product_en&SearchText=essential+oil+diffuser" target="_blank" rel="noopener" class="ali-btn">🛒 Alibaba</a>
+        </div>
+      </div>
+
+      <div class="product-card reveal">
+        <div class="product-img" style="background:linear-gradient(135deg,#E8F0E4,#C0D4B8);">💡</div>
+        <div class="product-body">
+          <div class="product-name">Sunrise Wake-Up Light</div>
+          <div class="product-desc">Gradual dawn simulation. 30-min warm red to bright white transition. Natural waking over alarm noise.</div>
+        </div>
+        <div class="product-footer">
+          <span class="product-price">$30+</span>
+          <a href="https://www.alibaba.com/trade/search?fsb=y&IndexArea=product_en&SearchText=sunrise+wake+up+light" target="_blank" rel="noopener" class="ali-btn">🛒 Alibaba</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="logo-main">SleepWell <em style="font-weight:300;">Studio</em></div><p>Mindful rest, naturally.</p><div style="margin-top:1.5rem;font-size:0.78rem;color:rgba(249,245,239,0.35);">Content is for informational purposes only.</div></div>
+      <div class="footer-links"><h4>Explore</h4><a href="shop.html">Shop</a><a href="index.html#science">Sleep Science</a><a href="index.html#music">Soundscapes</a></div>
+      <div class="footer-links"><h4>Legal</h4><a href="privacy.html">Privacy Policy</a><a href="disclaimer.html">Medical Disclaimer</a></div>
+      <div class="footer-links"><h4>Contact</h4><a href="about.html">About Us</a><a href="mailto:lianglinyuan666@gmail.com">lianglinyuan666@gmail.com</a></div>
+    </div>
+    <div class="footer-bottom"><span>&copy; 2026 SleepWell Studio. All rights reserved.</span></div>
+  </div>
+</footer>
+
+<script src="../shared/js/main.js"></script>
+</body>
+</html>
