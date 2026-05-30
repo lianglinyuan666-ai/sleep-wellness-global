@@ -47,9 +47,87 @@ function initRevealAnimations() {
   els.forEach(el => obs.observe(el));
 }
 
+/* ===== IMA 知识库本地索引 ===== */
+let _imaIndex = null; // 缓存
+
+async function loadIMAIndex() {
+  if (_imaIndex) return _imaIndex;
+  try {
+    // 计算相对于当前页面的路径
+    const base = window.location.pathname.includes('/cn/') || window.location.pathname.includes('/global/')
+      ? '../shared/data/ima-index.json'
+      : 'shared/data/ima-index.json';
+    const resp = await fetch(base);
+    if (!resp.ok) return null;
+    _imaIndex = await resp.json();
+    return _imaIndex;
+  } catch {
+    return null;
+  }
+}
+
+// 从本地 IMA 索引中搜索与用户问题相关的内容
+async function searchIMALocal(userQuestion) {
+  const index = await loadIMAIndex();
+  if (!index || !index.keywords) return '';
+
+  // 将用户问题与索引关键词进行匹配
+  const question = userQuestion.toLowerCase();
+  const matches = [];
+  const keywordMap = {
+    '睡不着': ['失眠', '助眠', '睡前'],
+    '失眠': ['失眠', '睡眠障碍', '睡眠改善'],
+    '多梦': ['深度睡眠', '睡眠质量'],
+    '褪黑素': ['褪黑素'],
+    '冥想': ['冥想', '正念'],
+    '睡眠': ['睡眠改善', '睡眠质量', '深度睡眠'],
+    '助眠': ['助眠', '睡前', '安神'],
+    '安神': ['安神', '助眠'],
+    '节律': ['昼夜节律', '睡眠节律'],
+    '节奏': ['昼夜节律'],
+    '卫生': ['睡眠卫生'],
+    '习惯': ['睡眠卫生', '睡眠改善'],
+    '睡前': ['睡前', '安神'],
+    '茶': ['安神', '助眠'],
+    '食': ['安神'],
+    '深度': ['深度睡眠'],
+    'insomnia': ['失眠', '睡眠障碍'],
+    'sleep': ['睡眠改善', '睡眠质量'],
+    'meditation': ['冥想', '正念'],
+    'melatonin': ['褪黑素'],
+    'rhythm': ['昼夜节律'],
+  };
+
+  const usedKws = new Set();
+  for (const [trigger, kws] of Object.entries(keywordMap)) {
+    if (question.includes(trigger)) {
+      kws.forEach(kw => usedKws.add(kw));
+    }
+  }
+
+  // 默认兜底关键词
+  if (usedKws.size === 0) usedKws.add('睡眠改善');
+
+  for (const kw of usedKws) {
+    const items = index.keywords[kw] || [];
+    items.forEach(item => {
+      if (item.title && item.snippet) {
+        matches.push(`【${item.kb}】${item.title}\n${item.snippet}`);
+      }
+    });
+  }
+
+  if (matches.length === 0) return '';
+
+  // 最多取 3 条，拼成上下文
+  const selected = matches.slice(0, 3);
+  return `\n\n以下是来自我的知识库的相关参考内容（请结合这些内容给出更准确的回答）：\n${selected.join('\n\n')}`;
+}
+
 /* ===== 通义千问 AI 聊天 ===== */
 // 合规提示词（隐藏系统提示）
 const QWEN_SYSTEM_PROMPT = `你是一位专业的睡眠与养生健康顾问助手，名叫"眠师"。你的职责是提供睡眠改善建议、养生知识科普和健康生活方式指导。
+你拥有丰富的睡眠知识库，包含来自「好睡眠」「正念认知睡眠」等专业知识库的内容。
 
 重要合规规则（必须严格遵守）：
 1. 严禁使用任何医疗宣传词汇，包括但不限于：治疗、治愈、根治、医治、疗效、消炎、杀菌、抗癌、抗病毒等
@@ -58,13 +136,24 @@ const QWEN_SYSTEM_PROMPT = `你是一位专业的睡眠与养生健康顾问助�
 4. 遇到需要医疗帮助的情况，必须建议用户咨询专业医生
 5. 专注于：睡眠改善、助眠方法、养生食养、生活习惯调节、放松技巧等健康生活方式内容
 6. 语气温和、积极、治愈，像一位贴心的健康生活顾问
-7. 中文回复，简洁不超过300字`;
+7. 中文回复，简洁不超过300字
+8. 如有参考知识库内容，可以自然地提及"来自专业知识库的建议"`;
 
 const QWEN_API_URL = 'https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation';
 // 通义千问 DashScope API Key
 const QWEN_API_KEY = window.QWEN_API_KEY || 'sk-063375f955b4451ea6181fc1fa61de24';
 
 async function callQwenAPI(messages) {
+  // 获取最后一条用户消息，搜索 IMA 知识库
+  const lastUserMsg = [...messages].reverse().find(m => m.role === 'user');
+  let imaContext = '';
+  if (lastUserMsg) {
+    imaContext = await searchIMALocal(lastUserMsg.content);
+  }
+
+  // 构建增强版系统提示（加入 IMA 知识库上下文）
+  const systemWithContext = QWEN_SYSTEM_PROMPT + imaContext;
+
   try {
     const resp = await fetch(QWEN_API_URL, {
       method: 'POST',
@@ -76,7 +165,7 @@ async function callQwenAPI(messages) {
         model: 'qwen-turbo',
         input: {
           messages: [
-            { role: 'system', content: QWEN_SYSTEM_PROMPT },
+            { role: 'system', content: systemWithContext },
             ...messages
           ]
         },
