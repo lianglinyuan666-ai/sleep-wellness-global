@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../shared/css/design-system.css">
+  <link rel="stylesheet" href="shared/css/design-system.css">
   <style>
     .about-hero { text-align:center; padding:var(--space-2xl) var(--space-md); background:linear-gradient(135deg, #F5F2EE 0%, #EDE8E1 50%, #E3DED6 100%); }
     .about-hero h1 { font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,5vw,3.5rem); font-weight:700; color:var(--clr-sage-deep); margin-bottom:0.5rem; }
@@ -30,7 +30,7 @@
   </style>
   <!-- Analytics -->
   <script>window.GA4_MEASUREMENT_ID='G-NCY473QPD1';</script>
-  <script src="../shared/js/analytics.js"></script>
+  <script src="shared/js/analytics.js"></script>
 </head>
 <body>
 <nav class="site-nav">
@@ -131,7 +131,9 @@
   <a href="privacy.html" style="color:var(--clr-sage-deep);">Privacy Policy</a>
 </div>
 
-<script src="../shared/js/main.js"></script>
+<script src="shared/js/auth.js"></script>
+<script src="shared/js/auth-ui.js"></script>
+<script src="shared/js/main.js"></script>
 <script>
   document.getElementById('navBurger').addEventListener('click', function() {
     document.getElementById('mobileMenu').classList.toggle('open');
