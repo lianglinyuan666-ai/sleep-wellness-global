@@ -3,71 +3,106 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Sleep Sound Library — Binaural beats, white noise, nature soundscapes, baby lullabies from Merry Sleep Nest, and guided sleep meditations.">
-  <meta property="og:title" content="Sound Library — SleepWell Studio">
+  <meta name="description" content="24 premium sleep sounds — binaural beats, nature soundscapes, noise spectrum, guided meditations. All synthesized in real-time via Web Audio API. No downloads needed.">
   <title>Sound Library — SleepWell Studio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="shared/css/design-system.css">
   <style>
-    .music-hero { padding: calc(var(--nav-h) + var(--space-xxl)) 0 var(--space-xl); background: linear-gradient(160deg, #1A1A2E 0%, #16213E 30%, #0F3460 60%, #1A1A2E 100%); color: var(--clr-cream); text-align: center; position: relative; overflow: hidden; }
-    .music-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 50%, rgba(100,150,255,0.06) 0%, transparent 60%), radial-gradient(ellipse at 70% 40%, rgba(200,150,255,0.05) 0%, transparent 60%); }
-    .music-hero h1 { font-family: var(--font-display); font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 300; position: relative; }
-    .music-hero p { font-size: 1rem; opacity: 0.7; max-width: 600px; margin: 0.75rem auto 0; position: relative; line-height: 1.7; }
-
-    /* CSS waveform art for audio covers */
-    .cover-art { width: 100%; aspect-ratio: 1/1; border-radius: var(--radius-lg); overflow: hidden; position: relative; }
-    .wv-delta { background: linear-gradient(160deg, #0A1628 0%, #0D2040 50%, #0A1830 100%); }
-    .wv-delta::before { content: ''; position: absolute; bottom: 30%; left: 10%; right: 10%; height: 2px; background: linear-gradient(90deg, transparent, rgba(80,140,255,0.6), transparent); animation: waveMove 3s ease-in-out infinite; }
-    .wv-delta::after { content: ''; position: absolute; bottom: 45%; left: 15%; right: 15%; height: 1.5px; background: linear-gradient(90deg, transparent, rgba(60,120,240,0.4), transparent); animation: waveMove 4s ease-in-out infinite 0.5s; }
-    .wv-theta { background: linear-gradient(160deg, #1A1028 0%, #2A1840 50%, #1A1030 100%); }
-    .wv-theta::before { content: ''; position: absolute; bottom: 35%; left: 8%; right: 8%; height: 2px; background: linear-gradient(90deg, transparent, rgba(180,120,240,0.5), transparent); animation: waveMove 3.5s ease-in-out infinite; }
-    .wv-pink { background: linear-gradient(160deg, #201810 0%, #302818 50%, #201010 100%); }
-    .wv-pink::before { content: ''; position: absolute; bottom: 20%; left: 5%; right: 5%; height: 3px; background: repeating-linear-gradient(90deg, rgba(240,180,140,0.3) 0px, rgba(240,180,140,0.3) 3px, transparent 3px, transparent 5px, rgba(240,160,120,0.2) 5px, rgba(240,160,120,0.2) 6px, transparent 6px, transparent 8px); }
-    .wv-rain { background: linear-gradient(160deg, #15202A 0%, #1A2835 50%, #101820 100%); }
-    .wv-rain::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(75deg, transparent, transparent 2px, rgba(140,180,210,0.08) 2px, rgba(140,180,210,0.08) 3px); }
-    .wv-ocean { background: linear-gradient(160deg, #0A2030 0%, #0D2A40 50%, #081828 100%); }
-    .wv-ocean::before { content: ''; position: absolute; bottom: 10%; left: 0; right: 0; height: 40%; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 120'%3E%3Cpath d='M0 60 Q50 30 100 60 T200 60 T300 60 T400 60 L400 120 L0 120Z' fill='rgba(100,180,220,0.15)'/%3E%3Cpath d='M0 75 Q50 50 100 75 T200 75 T300 75 T400 75 L400 120 L0 120Z' fill='rgba(80,160,200,0.1)'/%3E%3C/svg%3E") repeat-x bottom / 200px 80px; }
-    .wv-singing-bowl { background: linear-gradient(160deg, #201810 0%, #302820 50%, #1A1008 100%); }
-    .wv-singing-bowl::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100px; height: 100px; border: 3px solid rgba(200,160,100,0.2); border-radius: 50%; }
-    .wv-singing-bowl::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 60px; height: 60px; border: 2px solid rgba(220,180,120,0.3); border-radius: 50%; }
-    .wv-sleep8h { background: linear-gradient(160deg, #0A1530 0%, #0D2045 50%, #081028 100%); }
-    .wv-sleep8h::before { content: ''; position: absolute; top: 15%; left: 50%; transform: translateX(-50%); width: 50px; height: 50px; border-radius: 50%; background: radial-gradient(circle, rgba(100,160,240,0.3) 0%, transparent 70%); box-shadow: 0 0 30px rgba(100,150,240,0.15); }
-    .wv-yoga { background: linear-gradient(160deg, #102015 0%, #1A3025 50%, #0A1A10 100%); }
-    .wv-yoga::before { content: ''; position: absolute; inset: 20%; border: 1.5px solid rgba(120,200,140,0.15); border-radius: 50%; }
-    .wv-deep-sea { background: linear-gradient(160deg, #051020 0%, #0A1830 50%, #030A18 100%); }
-    .wv-deep-sea::before { content: ''; position: absolute; top: 40%; left: 30%; width: 5px; height: 5px; background: rgba(100,180,240,0.5); border-radius: 50%; box-shadow: 60px -20px 0 rgba(100,180,240,0.3), 80px 10px 0 rgba(100,180,240,0.4), 20px 30px 0 rgba(100,180,240,0.2); }
-    .wv-tibetan { background: linear-gradient(160deg, #1A1018 0%, #281820 50%, #10080A 100%); }
-    .wv-tibetan::before { content: ''; position: absolute; top: 30%; left: 50%; transform: translateX(-50%); width: 70px; height: 70px; border: 2px solid rgba(200,140,100,0.2); border-radius: 50%; }
-    .wv-tibetan::after { content: ''; position: absolute; top: 42%; left: 50%; transform: translateX(-50%); width: 30px; height: 30px; border: 1.5px solid rgba(220,160,120,0.3); border-radius: 50%; }
-
-    @keyframes waveMove { 0%,100% { transform: translateY(0) scaleX(1); } 50% { transform: translateY(-8px) scaleX(1.05); } }
-
+    :root { --player-h: 72px; --tab-active: #4A90D9; }
+    .music-hero { padding: calc(var(--nav-h) + var(--space-xxl)) 0 var(--space-xl); background: linear-gradient(160deg, #0A0E1A 0%, #121A2E 35%, #0D1F3C 60%, #0A0E1A 100%); color: var(--clr-cream); text-align: center; position: relative; overflow: hidden; }
+    .music-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 25% 30%, rgba(74,144,217,0.07) 0%, transparent 55%), radial-gradient(ellipse at 70% 60%, rgba(160,120,240,0.06) 0%, transparent 50%), radial-gradient(ellipse at 50% 80%, rgba(100,200,150,0.04) 0%, transparent 40%); }
+    .music-hero h1 { font-family: var(--font-display); font-size: clamp(2.4rem, 5vw, 3.6rem); font-weight: 300; position: relative; }
+    .music-hero p { font-size: 0.95rem; opacity: 0.65; max-width: 620px; margin: 0.6rem auto 0; position: relative; line-height: 1.7; }
+    .hero-stats { display: flex; gap: 2rem; justify-content: center; margin-top: 1.5rem; position: relative; }
+    .hero-stat { text-align: center; }
+    .hero-stat-num { font-family: var(--font-display); font-size: 1.8rem; font-weight: 600; color: var(--clr-gold); }
+    .hero-stat-label { font-size: 0.72rem; opacity: 0.5; text-transform: uppercase; letter-spacing: 0.1em; }
+    .cat-tabs { display: flex; gap: 0; background: var(--clr-bg-section); border-bottom: 1px solid rgba(0,0,0,0.06); position: sticky; top: var(--nav-h); z-index: 50; overflow-x: auto; }
+    .cat-tab { padding: 0.85rem 1.4rem; font-size: 0.85rem; font-weight: 500; color: var(--clr-text-muted); cursor: pointer; border: none; background: none; white-space: nowrap; transition: color 0.2s; position: relative; flex-shrink: 0; }
+    .cat-tab:hover { color: var(--clr-night); }
+    .cat-tab.active { color: var(--tab-active); font-weight: 600; }
+    .cat-tab.active::after { content: ''; position: absolute; bottom: 0; left: 0.8rem; right: 0.8rem; height: 3px; background: var(--tab-active); border-radius: 3px 3px 0 0; }
+    .cat-tab .count { font-size: 0.65rem; opacity: 0.4; margin-left: 0.3rem; }
+    .section-wrap { padding: var(--space-lg) 0; }
+    .section-wrap:nth-child(even) { background: var(--clr-bg-section); }
     .audio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
-    .audio-card { background: var(--clr-bg-card); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); transition: var(--transition); cursor: pointer; }
-    .audio-card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); }
+    .audio-card { background: var(--clr-bg-card); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); transition: all 0.25s ease; position: relative; }
+    .audio-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+    .audio-card.playing { box-shadow: 0 0 0 2px var(--tab-active), var(--shadow-md); }
+    .cover-art { width: 100%; aspect-ratio: 16/10; position: relative; overflow: hidden; }
+    .cover-nature { background: linear-gradient(135deg, #1a3a2a, #0d2818, #1a3a2a); }
+    .cover-brain { background: linear-gradient(135deg, #1a1a3a, #0d0d28, #1a1a3a); }
+    .cover-noise { background: linear-gradient(135deg, #2a1a2a, #180d18, #2a1a2a); }
+    .cover-guided { background: linear-gradient(135deg, #2a2a1a, #1a1a0d, #2a2a1a); }
+    .cover-art .wave { position: absolute; bottom: 0; left: 0; right: 0; height: 50%; opacity: 0.25; }
+    .cover-art .icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-size: 2.2rem; opacity: 0.6; }
+    .cover-art .play-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.35); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.25s; }
+    .audio-card:hover .play-overlay, .audio-card.playing .play-overlay { opacity: 1; }
+    .play-overlay-btn { width: 50px; height: 50px; border-radius: 50%; background: rgba(255,255,255,0.9); border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.2rem; transition: transform 0.2s; color: var(--clr-night); }
+    .play-overlay-btn:hover { transform: scale(1.1); }
+    .audio-card.playing .play-overlay-btn { background: var(--tab-active); color: #fff; }
     .audio-body { padding: var(--space-md); }
-    .audio-title-s { font-weight: 600; font-size: 0.95rem; color: var(--clr-night); margin-bottom: 0.3rem; }
-    .audio-meta { font-size: 0.78rem; color: var(--clr-text-muted); margin-bottom: 0.5rem; }
-    .audio-desc { font-size: 0.82rem; color: var(--clr-text-secondary); line-height: 1.6; }
-    .audio-price { font-family: var(--font-display); font-size: 1.4rem; font-weight: 600; color: var(--clr-sage-deep); margin-top: 0.75rem; }
-
+    .audio-tags { display: flex; gap: 0.35rem; margin-bottom: 0.5rem; flex-wrap: wrap; }
+    .tag { font-size: 0.65rem; padding: 0.15rem 0.5rem; border-radius: var(--radius-pill); font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; }
+    .tag-nature { background: #E8F5E9; color: #2E7D32; }
+    .tag-brain { background: #E3F2FD; color: #1565C0; }
+    .tag-noise { background: #F3E5F5; color: #7B1FA2; }
+    .tag-guided { background: #FFF8E1; color: #F57F17; }
+    .tag-new { background: #FFE0E0; color: #D32F2F; }
+    .tag-popular { background: #FFE0B2; color: #E65100; }
+    .audio-title { font-weight: 600; font-size: 0.95rem; color: var(--clr-night); margin-bottom: 0.25rem; }
+    .audio-subtitle { font-size: 0.75rem; color: var(--clr-text-muted); margin-bottom: 0.4rem; }
+    .audio-desc { font-size: 0.8rem; color: var(--clr-text-secondary); line-height: 1.6; margin-bottom: 0.6rem; }
+    .audio-controls { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem; }
+    .btn-play { flex: 1; padding: 0.5rem; border: none; border-radius: var(--radius-sm); font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s; background: var(--clr-sage); color: #fff; }
+    .btn-play:hover { filter: brightness(1.1); }
+    .btn-play.playing { background: var(--clr-night); }
+    .btn-fav { width: 34px; height: 34px; border: none; border-radius: var(--radius-sm); cursor: pointer; background: transparent; font-size: 1rem; transition: transform 0.2s; display: flex; align-items: center; justify-content: center; }
+    .btn-fav:hover { transform: scale(1.2); }
+    .btn-fav.active { color: #E53935; }
+    .volume-row { display: flex; align-items: center; gap: 0.4rem; margin-top: 0.4rem; }
+    .volume-row input[type="range"] { flex: 1; height: 4px; -webkit-appearance: none; appearance: none; background: #ddd; border-radius: 2px; outline: none; }
+    .volume-row input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; background: var(--tab-active); border-radius: 50%; cursor: pointer; }
+    .volume-label { font-size: 0.65rem; color: var(--clr-text-muted); width: 28px; text-align: right; }
+    .player-bar { position: fixed; bottom: 0; left: 0; right: 0; height: var(--player-h); background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); border-top: 1px solid rgba(0,0,0,0.08); z-index: 1000; display: flex; align-items: center; padding: 0 var(--space-md); transform: translateY(100%); transition: transform 0.3s ease; box-shadow: 0 -4px 20px rgba(0,0,0,0.06); }
+    .player-bar.visible { transform: translateY(0); }
+    .player-info { display: flex; align-items: center; gap: 0.75rem; flex: 1; min-width: 0; }
+    .player-icon { font-size: 1.5rem; }
+    .player-title { font-weight: 600; font-size: 0.85rem; color: var(--clr-night); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .player-subtitle { font-size: 0.7rem; color: var(--clr-text-muted); }
+    .player-controls { display: flex; align-items: center; gap: 0.75rem; }
+    .btn-player { width: 36px; height: 36px; border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; transition: all 0.2s; }
+    .btn-player-stop { background: #EF5350; color: #fff; }
+    .btn-player-stop:hover { background: #E53935; }
+    .btn-player-timer { background: transparent; color: var(--clr-text-secondary); font-size: 0.75rem; width: auto; padding: 0 0.6rem; border-radius: var(--radius-pill); font-weight: 500; border: 1px solid #ddd; }
+    .btn-player-timer:hover, .btn-player-timer.active { border-color: var(--tab-active); color: var(--tab-active); }
+    .player-vol-wrap { display: flex; align-items: center; gap: 0.3rem; }
+    .player-vol-wrap input[type="range"] { width: 70px; }
+    .timer-dropdown { position: relative; display: inline-block; }
+    .timer-menu { position: absolute; bottom: 100%; right: 0; margin-bottom: 6px; background: #fff; border-radius: var(--radius-md); box-shadow: 0 8px 30px rgba(0,0,0,0.15); padding: 0.4rem 0; min-width: 160px; display: none; z-index: 1001; }
+    .timer-dropdown.open .timer-menu { display: block; }
+    .timer-item { padding: 0.5rem 1rem; font-size: 0.82rem; cursor: pointer; transition: background 0.15s; display: flex; justify-content: space-between; align-items: center; }
+    .timer-item:hover { background: #F5F5F5; }
+    .timer-countdown { font-size: 0.7rem; color: var(--tab-active); font-weight: 600; margin-left: 0.5rem; }
+    .quick-access { display: flex; gap: var(--space-md); margin-bottom: var(--space-md); flex-wrap: wrap; }
+    .quick-chip { padding: 0.4rem 0.9rem; border-radius: var(--radius-pill); font-size: 0.78rem; cursor: pointer; border: 1px solid #e0e0e0; background: #fff; color: var(--clr-text-secondary); transition: all 0.2s; display: flex; align-items: center; gap: 0.3rem; }
+    .quick-chip:hover { border-color: var(--tab-active); color: var(--tab-active); }
+    .quick-chip.fav { border-color: #FFCDD2; }
+    .quick-chip.fav:hover { background: #FFF5F5; }
     .science-block { background: var(--clr-bg-card); border-radius: var(--radius-lg); padding: var(--space-lg); box-shadow: var(--shadow-sm); }
-    .science-block h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--clr-sage-deep); }
-    .science-block p { font-size: 0.85rem; color: var(--clr-text-secondary); line-height: 1.7; }
+    .science-block h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--clr-sage-deep); }
+    .science-block p { font-size: 0.83rem; color: var(--clr-text-secondary); line-height: 1.7; }
     .science-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-md); }
-
-    /* Featured YouTube section */
-    .youtube-feature { background: linear-gradient(135deg, #FF000018, #28282818); border: 2px solid rgba(255,0,0,0.1); border-radius: var(--radius-lg); padding: var(--space-lg); }
-    .youtube-feature h3 { display: flex; align-items: center; gap: 0.5rem; font-size: 1.1rem; color: var(--clr-night); margin-bottom: 1rem; }
-
-    .bundle-card { background: linear-gradient(135deg, var(--clr-night), var(--clr-moss)); border-radius: var(--radius-lg); padding: var(--space-lg); color: var(--clr-cream); text-align: center; }
-    .bundle-price { font-family: var(--font-display); font-size: 2rem; font-weight: 600; color: var(--clr-gold); }
-    .bundle-save { font-size: 0.85rem; color: rgba(249,245,239,0.6); }
-
+    .section-hdr { display: flex; align-items: center; gap: 0.75rem; margin-bottom: var(--space-md); }
+    .section-hdr-icon { font-size: 1.5rem; }
+    .section-hdr h2 { font-size: 1.4rem; font-weight: 600; color: var(--clr-night); margin: 0; }
+    .section-hdr .count-badge { font-size: 0.72rem; color: var(--clr-text-muted); background: #f0f0f0; padding: 0.15rem 0.5rem; border-radius: var(--radius-pill); }
+    .toast { position: fixed; bottom: calc(var(--player-h) + 20px); left: 50%; transform: translateX(-50%); background: var(--clr-night); color: #fff; padding: 0.6rem 1.2rem; border-radius: var(--radius-pill); font-size: 0.8rem; z-index: 2000; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+    .toast.show { opacity: 1; }
     @media (max-width: 1024px) { .audio-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 640px) { .audio-grid { grid-template-columns: 1fr; } .science-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 640px) { .audio-grid { grid-template-columns: 1fr; } .science-grid { grid-template-columns: 1fr; } .hero-stats { gap: 1rem; } .player-vol-wrap input[type="range"] { width: 50px; } }
   </style>
   <script src="shared/js/analytics.js"></script>
 </head>
@@ -82,11 +117,11 @@
       <a href="music.html" class="active">Sound Library</a>
       <a href="food.html">Wellness Diet</a>
       <a href="shop.html">Shop</a>
-      <a href="videos.html">🎬 Videos</a>
+      <a href="videos.html">Videos</a>
       <a href="about.html">About</a>
     </div>
     <div class="nav-actions">
-      <a href="https://480d7fc2862f4273bd688d9045f2acd5.app.codebuddy.work/cn/index.html" class="nav-lang-switch">🇨🇳 中文</a>
+      <a href="https://480d7fc2862f4273bd688d9045f2acd5.app.codebuddy.work/cn/index.html" class="nav-lang-switch">🇨🇳 Chinese</a>
       <button class="nav-login-btn" id="navLoginBtn" style="background:var(--clr-sage);color:#fff;border:none;padding:0.4rem 1rem;border-radius:var(--radius-pill);font-size:0.78rem;font-weight:600;cursor:pointer;">Login</button>
       <div class="nav-burger" id="navBurger"><span></span><span></span><span></span></div>
     </div>
@@ -95,182 +130,67 @@
 
 <section class="music-hero">
   <h1>Sound Library</h1>
-  <p>Binaural beats, nature soundscapes, baby lullabies, and guided meditations — scientifically designed to guide your brain into deeper rest.</p>
-</section>
-
-<section class="section" style="background: var(--clr-bg-section);">
-  <div class="container">
-    <div class="label-tag reveal">Premium Audio Collection</div>
-    <h2 class="heading-h2 reveal" style="margin:0.75rem 0 var(--space-lg);">11 Tracks for Every Sleep Stage</h2>
-
-    <div class="audio-grid">
-      <!-- Track 1: Delta -->
-      <div class="audio-card reveal">
-        <div class="cover-art wv-delta"></div>
-        <div class="audio-body">
-          <div style="display:flex;gap:0.4rem;margin-bottom:0.5rem;"><span class="tag tag-sage">Delta 0.5-4Hz</span><span class="tag">Deep Sleep</span></div>
-          <div class="audio-title-s">Delta Wave Deep Sleep</div>
-          <div class="audio-meta">Pure Binaural Beats · 60 min</div>
-          <div class="audio-desc">0.5-4Hz delta carrier enhances slow-wave N3 sleep. Use headphones; the frequency differential between ears entrains brainwaves toward deep restorative rest.</div>
-          <button class="audio-play-btn" data-sound="delta" data-volume="0.15" style="width:100%;padding:0.5rem;margin-top:0.4rem;background:var(--clr-sage);color:#fff;border:none;border-radius:var(--radius-sm);font-size:0.82rem;font-weight:600;cursor:pointer;">▶ Play Free Preview</button>
-          <div class="audio-price">$3.99</div>
-        </div>
-      </div>
-
-      <!-- Track 2: Theta -->
-      <div class="audio-card reveal">
-        <div class="cover-art wv-theta"></div>
-        <div class="audio-body">
-          <div style="display:flex;gap:0.4rem;margin-bottom:0.5rem;"><span class="tag tag-lavender">Theta 4-8Hz</span><span class="tag">Meditation</span></div>
-          <div class="audio-title-s">Theta Wave Meditation Bridge</div>
-          <div class="audio-meta">Binaural + Isochronic · 45 min</div>
-          <div class="audio-desc">The twilight zone between wakefulness and sleep. Ideal for pre-sleep meditation, creative visualization, or transitioning from a busy mind to rest mode.</div>
-          <button class="audio-play-btn" data-sound="theta" data-volume="0.15" style="width:100%;padding:0.5rem;margin-top:0.4rem;background:var(--clr-sage);color:#fff;border:none;border-radius:var(--radius-sm);font-size:0.82rem;font-weight:600;cursor:pointer;">▶ Play Free Preview</button>
-          <div class="audio-price">$3.99</div>
-        </div>
-      </div>
-
-      <!-- Track 3: Pink Noise -->
-      <div class="audio-card reveal">
-        <div class="cover-art wv-pink"></div>
-        <div class="audio-body">
-          <div style="display:flex;gap:0.4rem;margin-bottom:0.5rem;"><span class="tag tag-blush">Pink Noise</span><span class="tag">Research-backed</span></div>
-          <div class="audio-title-s">Pink Noise Sleep Enhancer</div>
-          <div class="audio-meta">1/f Spectrum · 90 min</div>
-          <div class="audio-desc">Pink noise may increase slow-wave sleep by 23% in studies. Unlike white noise's harsh highs, pink noise has a natural, rainfall-like quality that the sleeping brain prefers.</div>
-          <button class="audio-play-btn" data-sound="pink" data-volume="0.25" style="width:100%;padding:0.5rem;margin-top:0.4rem;background:var(--clr-sage);color:#fff;border:none;border-radius:var(--radius-sm);font-size:0.82rem;font-weight:600;cursor:pointer;">▶ Play Free Preview</button>
-          <div class="audio-price">$3.99</div>
-        </div>
-      </div>
-
-      <!-- Track 4: Rain -->
-      <div class="audio-card reveal">
-        <div class="cover-art wv-rain"></div>
-        <div class="audio-body">
-          <div style="display:flex;gap:0.4rem;margin-bottom:0.5rem;"><span class="tag tag-sage">Nature</span><span class="tag">Popular</span></div>
-          <div class="audio-title-s">Gentle Rain on Leaves</div>
-          <div class="audio-meta">Field Recording · 120 min</div>
-          <div class="audio-desc">Professional binaural field recording of soft rain through forest canopy. The stochastic nature of rain sounds masks irregular noises that disrupt light sleep.</div>
-          <button class="audio-play-btn" data-sound="rain" data-volume="0.2" style="width:100%;padding:0.5rem;margin-top:0.4rem;background:var(--clr-sage);color:#fff;border:none;border-radius:var(--radius-sm);font-size:0.82rem;font-weight:600;cursor:pointer;">▶ Play Free Preview</button>
-          <div class="audio-price">$2.99</div>
-        </div>
-      </div>
-
-      <!-- Track 5: Ocean -->
-      <div class="audio-card reveal">
-        <div class="cover-art wv-ocean"></div>
-        <div class="audio-body">
-          <div style="display:flex;gap:0.4rem;margin-bottom:0.5rem;"><span class="tag tag-sage">Nature</span></div>
-          <div class="audio-title-s">Ocean Waves at Dusk</div>
-          <div class="audio-meta">Field Recording · 90 min</div>
-          <div class="audio-desc">Slow, rhythmic waves recorded at a secluded beach. The ~12-second wave interval naturally entrains breathing toward 5 breaths/minute — the resonance frequency of the baroreflex.</div>
-          <button class="audio-play-btn" data-sound="ocean" data-volume="0.3" style="width:100%;padding:0.5rem;margin-top:0.4rem;background:var(--clr-sage);color:#fff;border:none;border-radius:var(--radius-sm);font-size:0.82rem;font-weight:600;cursor:pointer;">▶ Play Free Preview</button>
-          <div class="audio-price">$2.99</div>
-        </div>
-      </div>
-
-      <!-- Track 6: Singing Bowl -->
-      <div class="audio-card reveal">
-        <div class="cover-art wv-singing-bowl"></div>
-        <div class="audio-body">
-          <div style="display:flex;gap:0.4rem;margin-bottom:0.5rem;"><span class="tag tag-lavender">Sound Therapy</span></div>
-          <div class="audio-title-s">Tibetan Singing Bowl Resonance</div>
-          <div class="audio-meta">432Hz Tuning · 60 min</div>
-          <div class="audio-desc">Authentic hand-hammered singing bowls in 432Hz tuning. The layered harmonics create a "binaural beat" effect without headphones — your brain processes the beating between overtone frequencies naturally.</div>
-          <button class="audio-play-btn" data-sound="bowl" data-volume="0.12" style="width:100%;padding:0.5rem;margin-top:0.4rem;background:var(--clr-sage);color:#fff;border:none;border-radius:var(--radius-sm);font-size:0.82rem;font-weight:600;cursor:pointer;">▶ Play Free Preview</button>
-          <div class="audio-price">$4.99</div>
-        </div>
-      </div>
-
-      <!-- Track 7: Deep Sea -->
-      <div class="audio-card reveal">
-        <div class="cover-art wv-deep-sea"></div>
-        <div class="audio-body">
-          <div style="display:flex;gap:0.4rem;margin-bottom:0.5rem;"><span class="tag tag-blush">Deep Sea</span><span class="tag">New</span></div>
-          <div class="audio-title-s">Deep Sea Abyss Ambience</div>
-          <div class="audio-meta">Ultra-low Frequency · 120 min</div>
-          <div class="audio-desc">Sub-100Hz oceanic drone with distant whale song fragments. The womb-like low frequencies trigger deep relaxation through somatic resonance — you feel it in your chest as much as you hear it.</div>
-          <button class="audio-play-btn" data-sound="brown" data-volume="0.3" style="width:100%;padding:0.5rem;margin-top:0.4rem;background:var(--clr-sage);color:#fff;border:none;border-radius:var(--radius-sm);font-size:0.82rem;font-weight:600;cursor:pointer;">▶ Play Free Preview</button>
-          <div class="audio-price">$3.99</div>
-        </div>
-      </div>
-
-      <!-- Track 8: Tibetan Bowl -->
-      <div class="audio-card reveal">
-        <div class="cover-art wv-tibetan"></div>
-        <div class="audio-body">
-          <div style="display:flex;gap:0.4rem;margin-bottom:0.5rem;"><span class="tag tag-lavender">Tibetan</span><span class="tag">Premium</span></div>
-          <div class="audio-title-s">Tibetan Singing Bowl Ensemble</div>
-          <div class="audio-meta">7 Bowls Chakra Tuning · 75 min</div>
-          <div class="audio-desc">Seven antique singing bowls tuned to chakra frequencies. The interweaving overtones create a complex harmonic field that engages the brain's auditory cortex in sustained attention — gently tiring it toward sleep.</div>
-          <button class="audio-play-btn" data-sound="bowl" data-volume="0.1" style="width:100%;padding:0.5rem;margin-top:0.4rem;background:var(--clr-sage);color:#fff;border:none;border-radius:var(--radius-sm);font-size:0.82rem;font-weight:600;cursor:pointer;">▶ Play Free Preview</button>
-          <div class="audio-price">$5.99</div>
-        </div>
-      </div>
-
-      <!-- Track 9: White Noise 8H -->
-      <div class="audio-card reveal">
-        <div class="cover-art wv-sleep8h"></div>
-        <div class="audio-body">
-          <div style="display:flex;gap:0.4rem;margin-bottom:0.5rem;"><span class="tag tag-sage">White Noise</span><span class="tag">8 Hours</span></div>
-          <div class="audio-title-s">White Noise: Full Night 8-Hour</div>
-          <div class="audio-meta">Flat Spectrum · 480 min</div>
-          <div class="audio-desc">Consistent white noise across all audible frequencies for the complete sleep cycle. One uninterrupted 8-hour track — no loops, no fades, no disruptions. Ideal for shift workers and noisy environments.</div>
-          <button class="audio-play-btn" data-sound="white" data-volume="0.25" style="width:100%;padding:0.5rem;margin-top:0.4rem;background:var(--clr-sage);color:#fff;border:none;border-radius:var(--radius-sm);font-size:0.82rem;font-weight:600;cursor:pointer;">▶ Play Free Preview</button>
-          <div class="audio-price">$4.99</div>
-        </div>
-      </div>
-
-      <!-- Track 10: Yoga Nidra -->
-      <div class="audio-card reveal">
-        <div class="cover-art wv-yoga"></div>
-        <div class="audio-body">
-          <div style="display:flex;gap:0.4rem;margin-bottom:0.5rem;"><span class="tag tag-blush">Guided</span><span class="tag">Yogic</span></div>
-          <div class="audio-title-s">Yoga Nidra for Deep Rest</div>
-          <div class="audio-meta">Guided Meditation · 45 min</div>
-          <div class="audio-desc">Traditional yogic sleep protocol: body scan → breath awareness → Sankalpa (intention) → visualization. Research shows 45 min of Yoga Nidra can produce restorative effects equivalent to ~3 hours of conventional sleep.</div>
-          <div class="audio-price">$5.99</div>
-        </div>
-      </div>
-
-      <!-- Track 11: Bundle -->
-      <div class="audio-card reveal" style="border:2px solid var(--clr-gold);">
-        <div class="bundle-card" style="border-radius:var(--radius-lg) var(--radius-lg) 0 0; height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:2rem 1rem;">
-          <div style="font-size:2.5rem; margin-bottom:1rem;">🎁</div>
-          <div style="font-weight:700;font-size:1.2rem;margin-bottom:0.5rem;">Complete Sleep Bundle</div>
-          <div style="font-size:0.85rem;opacity:0.7;margin-bottom:1rem;">All 11 tracks · Lossless FLAC + MP3</div>
-          <div class="bundle-price">$28.99</div>
-          <div class="bundle-save">Save 40% vs individual</div>
-          <button class="btn btn-gold" style="margin-top:1rem;width:100%;">Buy Bundle</button>
-        </div>
-      </div>
-    </div>
+  <p>24 premium sleep sounds. All synthesized in real-time via Web Audio — no downloads, no buffering, always works.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="hero-stat-num">24</div><div class="hero-stat-label">Tracks</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">4</div><div class="hero-stat-label">Categories</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">&infin;</div><div class="hero-stat-label">Play Time</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">0</div><div class="hero-stat-label">Downloads Needed</div></div>
   </div>
 </section>
 
-<!-- Science of Sound Section -->
+<div class="cat-tabs" id="catTabs">
+  <button class="cat-tab active" data-cat="nature">🌊 Natural Soundscapes <span class="count">7</span></button>
+  <button class="cat-tab" data-cat="brain">🧠 Brainwave Frequencies <span class="count">7</span></button>
+  <button class="cat-tab" data-cat="noise">🎧 Noise Spectrum <span class="count">5</span></button>
+  <button class="cat-tab" data-cat="guided">🧘 Guided Meditation <span class="count">5</span></button>
+</div>
+
+<section class="section" id="quickAccessSection" style="padding-bottom:0; display:none;">
+  <div class="container"><div class="quick-access" id="quickAccess"></div></div>
+</section>
+
+<section class="section-wrap" id="cat-nature">
+  <div class="container">
+    <div class="section-hdr"><span class="section-hdr-icon">🌊</span><h2>Natural Soundscapes</h2><span class="count-badge">7 tracks</span></div>
+    <p style="color:var(--clr-text-muted);font-size:0.85rem;margin-bottom:var(--space-md);">Evolutionary signals of safety. These stochastic sounds mask disruptive noise while telling your amygdala: "no threat here."</p>
+    <div class="audio-grid" id="grid-nature"></div>
+  </div>
+</section>
+
+<section class="section-wrap" id="cat-brain" style="display:none;">
+  <div class="container">
+    <div class="section-hdr"><span class="section-hdr-icon">🧠</span><h2>Brainwave Frequencies</h2><span class="count-badge">7 tracks</span></div>
+    <p style="color:var(--clr-text-muted);font-size:0.85rem;margin-bottom:var(--space-md);">Frequency-Following Response (FFR) entrains your brain toward specific states. Use headphones for binaural beats.</p>
+    <div class="audio-grid" id="grid-brain"></div>
+  </div>
+</section>
+
+<section class="section-wrap" id="cat-noise" style="display:none;">
+  <div class="container">
+    <div class="section-hdr"><span class="section-hdr-icon">🎧</span><h2>Noise Spectrum</h2><span class="count-badge">5 tracks</span></div>
+    <p style="color:var(--clr-text-muted);font-size:0.85rem;margin-bottom:var(--space-md);">From deep rumble to airy hiss — each noise color has a distinct spectral profile. Find the one your brain prefers.</p>
+    <div class="audio-grid" id="grid-noise"></div>
+  </div>
+</section>
+
+<section class="section-wrap" id="cat-guided" style="display:none;">
+  <div class="container">
+    <div class="section-hdr"><span class="section-hdr-icon">🧘</span><h2>Guided Meditation</h2><span class="count-badge">5 tracks</span></div>
+    <p style="color:var(--clr-text-muted);font-size:0.85rem;margin-bottom:var(--space-md);">Audio-cued protocols activate the parasympathetic nervous system via the vagus nerve. No voice — pure tone guidance.</p>
+    <div class="audio-grid" id="grid-guided"></div>
+  </div>
+</section>
+
 <section class="section">
   <div class="container">
     <div class="label-tag reveal">The Science</div>
     <h2 class="heading-h2 reveal" style="margin:0.75rem 0 var(--space-lg);">How Sound Shapes Your Sleep</h2>
-
     <div class="science-grid">
-      <div class="science-block reveal">
-        <h3>🧠 Binaural Beats: Brainwave Entrainment</h3>
-        <p>When each ear receives a slightly different frequency (e.g., 200Hz left, 204Hz right), the brain perceives a 4Hz "beat" — a theta frequency associated with drowsiness. This frequency-following response (FFR) has been documented in EEG studies. <em style="font-size:0.78rem;color:var(--clr-text-muted);">Source: IMA Good Sleep · Confidence 8/10</em></p>
-      </div>
-      <div class="science-block reveal">
-        <h3>🎵 Pink Noise: Enhancing Deep Sleep</h3>
-        <p>Unlike white noise (equal energy across frequencies), pink noise decreases by 3dB per octave — matching how the human auditory system processes sound. A 2017 Frontiers in Human Neuroscience study found pink noise during sleep increased slow-wave activity, particularly benefiting older adults' memory consolidation. <em style="font-size:0.78rem;color:var(--clr-text-muted);">Source: IMA MCBT-I Sleep · Confidence 9/10</em></p>
-      </div>
-      <div class="science-block reveal">
-        <h3>🌊 Nature Sounds: Evolutionary Masking</h3>
-        <p>Rain, waves, and wind are "stochastic" sounds — unpredictable enough to mask sudden noises (doors, traffic) but smooth enough not to startle. Evolutionarily, these sounds signal "no immediate threat" to the brain's vigilance system, allowing the amygdala to down-regulate. <em style="font-size:0.78rem;color:var(--clr-text-muted);">Source: IMA Good Sleep · Confidence 7/10</em></p>
-      </div>
-      <div class="science-block reveal">
-        <h3>🧘 Meditation Audio: The Relaxation Response</h3>
-        <p>Guided body scans and breathing instructions activate the parasympathetic nervous system via the vagus nerve. A meta-analysis of 18 studies confirmed guided sleep meditations significantly reduce sleep onset latency, with effects comparable to low-dose sleep medication — without side effects. <em style="font-size:0.78rem;color:var(--clr-text-muted);">Source: IMA MCBT-I Sleep · Confidence 8/10</em></p>
-      </div>
+      <div class="science-block reveal"><h3>🧠 Binaural Beats: Brainwave Entrainment</h3><p>When each ear receives a slightly different frequency (e.g. 200Hz left, 206Hz right), the brain perceives a 6Hz "beat" — a theta frequency associated with drowsiness. This frequency-following response (FFR) has been documented in EEG studies. <em style="font-size:0.75rem;color:var(--clr-text-muted);">Source: IMA Good Sleep · Confidence 8/10</em></p></div>
+      <div class="science-block reveal"><h3>🎵 Pink Noise: Enhancing Slow-Wave Sleep</h3><p>Pink noise decreases by 3dB per octave — matching how the human auditory system processes sound. A 2017 Frontiers in Human Neuroscience study found pink noise during sleep increased slow-wave activity, especially benefiting older adults' memory consolidation. <em style="font-size:0.75rem;color:var(--clr-text-muted);">Source: IMA MCBT-I Sleep · Confidence 9/10</em></p></div>
+      <div class="science-block reveal"><h3>🌊 Nature Sounds: Evolutionary Masking</h3><p>Rain, waves, and wind are "stochastic" — unpredictable enough to mask sudden noises but smooth enough not to startle. These sounds signal "no immediate threat" to the brain's vigilance system. <em style="font-size:0.75rem;color:var(--clr-text-muted);">Source: IMA Good Sleep · Confidence 7/10</em></p></div>
+      <div class="science-block reveal"><h3>🧘 4-7-8 Breathing: The Relaxation Response</h3><p>The 4-7-8 technique activates the parasympathetic nervous system. A meta-analysis confirmed guided breathing significantly reduces sleep onset latency, with effects comparable to low-dose sleep medication — without side effects. <em style="font-size:0.75rem;color:var(--clr-text-muted);">Source: IMA MCBT-I Sleep · Confidence 8/10</em></p></div>
     </div>
   </div>
 </section>
@@ -282,68 +202,87 @@
       <div class="footer-links"><h4>Explore</h4><a href="index.html">Home</a><a href="science.html">Sleep Science</a><a href="music.html">Sound Library</a><a href="food.html">Wellness Diet</a></div>
       <div class="footer-links"><h4>Company</h4><a href="about.html">About Us</a><a href="disclaimer.html">Disclaimer</a><a href="privacy.html">Privacy Policy</a></div>
     </div>
-    <div class="footer-bottom"><span>© 2026 SleepWell Studio</span><span>Not medical advice · Wellness education only</span></div>
+    <div class="footer-bottom"><span>&copy; 2026 SleepWell Studio</span><span>Not medical advice · Wellness education only</span></div>
   </div>
 </footer>
 
-<div class="ai-chat-fab">
-  <div class="ai-chat-window">
-    <div class="chat-header"><div class="chat-header-icon">🎧</div><div class="chat-header-text"><div class="name">Mianshi · AI Sleep Coach</div><div class="status">Powered by Qwen + IMA Knowledge Bases</div></div></div>
-    <div class="chat-messages"></div>
-    <div style="padding:0.5rem;background:#F8F7F5;font-size:0.68rem;color:#AAA;text-align:center;">For reference only. Not medical advice.</div>
-    <div class="chat-input-area"><input type="text" placeholder="Which sound is best for me?"/><button class="chat-send-btn"><svg viewBox="0 0 16 16"><path d="M2 8L14 2l-2 12-4-4-6 2z"/></svg></button></div>
+<div class="player-bar" id="playerBar">
+  <div class="player-info">
+    <span class="player-icon" id="playerIcon">🎵</span>
+    <div><div class="player-title" id="playerTitle">No track playing</div><div class="player-subtitle" id="playerSubtitle">Select a sound to begin</div></div>
   </div>
-  <button class="ai-chat-btn" title="AI Sleep Coach"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg></button>
+  <div class="player-controls">
+    <div class="player-vol-wrap"><span style="font-size:0.7rem;">🔊</span><input type="range" min="0" max="100" value="60" id="masterVolume" title="Master Volume"></div>
+    <div class="timer-dropdown" id="timerDropdown">
+      <button class="btn-player btn-player-timer" id="timerBtn" title="Sleep Timer">⏱ Timer</button>
+      <div class="timer-menu" id="timerMenu">
+        <div class="timer-item" data-min="15">15 min</div><div class="timer-item" data-min="30">30 min</div><div class="timer-item" data-min="45">45 min</div><div class="timer-item" data-min="60">60 min</div><div class="timer-item" data-min="90">90 min</div><div class="timer-item" data-min="120">120 min</div><div class="timer-item" data-min="0" style="color:#EF5350;">Cancel Timer</div>
+      </div>
+    </div>
+    <button class="btn-player btn-player-stop" id="btnStop" title="Stop">⏹</button>
+  </div>
+  <span class="timer-countdown" id="timerCountdown"></span>
 </div>
+
+<div class="toast" id="toast"></div>
 
 <script src="shared/js/auth.js"></script>
 <script src="shared/js/auth-ui.js"></script>
 <script src="shared/js/audio-generator.js"></script>
 <script src="shared/js/main.js"></script>
 <script>
-(function() {
-  var currentTrack = null;
-  var currentBtn = null;
-
-  function toggleSound(btn, soundFn, vol) {
-    if (currentTrack && currentBtn === btn) {
-      SleepSounds.stop();
-      btn.textContent = '▶ Play';
-      btn.style.background = 'var(--clr-sage)';
-      currentTrack = null;
-      currentBtn = null;
-      return;
-    }
-    if (currentTrack) {
-      SleepSounds.stop();
-      if (currentBtn) {
-        currentBtn.textContent = '▶ Play';
-        currentBtn.style.background = 'var(--clr-sage)';
-      }
-    }
-    soundFn(vol);
-    btn.textContent = '■ Stop';
-    btn.style.background = 'var(--clr-night)';
-    currentTrack = soundFn;
-    currentBtn = btn;
-  }
-
-  document.querySelectorAll('.audio-play-btn').forEach(function(btn) {
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      var sound = btn.dataset.sound;
-      var vol = parseFloat(btn.dataset.volume || '0.3');
-      if (sound === 'white') toggleSound(btn, function(v) { SleepSounds.whiteNoise(v); }, vol);
-      else if (sound === 'pink') toggleSound(btn, function(v) { SleepSounds.pinkNoise(v); }, vol);
-      else if (sound === 'brown') toggleSound(btn, function(v) { SleepSounds.brownNoise(v); }, vol);
-      else if (sound === 'rain') toggleSound(btn, function(v) { SleepSounds.rain(v); }, vol);
-      else if (sound === 'ocean') toggleSound(btn, function(v) { SleepSounds.ocean(v); }, vol);
-      else if (sound === 'wind') toggleSound(btn, function(v) { SleepSounds.wind(v); }, vol);
-      else if (sound === 'delta') toggleSound(btn, function(v) { SleepSounds.deltaWaves(v); }, vol);
-      else if (sound === 'theta') toggleSound(btn, function(v) { SleepSounds.thetaWaves(v); }, vol);
-      else if (sound === 'bowl') toggleSound(btn, function(v) { SleepSounds.singingBowl(v); }, vol);
-    });
-  });
+(function(){'use strict';
+var allTracks=[
+{id:'rain',cat:'nature',icon:'🌧️',title:'Gentle Rain on Leaves',sub:'Layered Field Recording · ∞ min',desc:'Binaural rain through forest canopy. The stochastic pattern masks irregular noises that disrupt light sleep.',tags:['Popular','Nature'],sound:'rain',vol:0.2,cover:'cover-nature'},
+{id:'ocean',cat:'nature',icon:'🌊',title:'Ocean Waves at Dusk',sub:'Rhythmic Surf · ∞ min',desc:'Slow ~12-second wave cycle naturally entrains breathing toward 5 breaths/min — the baroreflex resonance frequency.',tags:['Nature'],sound:'ocean',vol:0.3,cover:'cover-nature'},
+{id:'wind',cat:'nature',icon:'🍃',title:'Wind Through Trees',sub:'Ambient Breeze · ∞ min',desc:'Filtered wind with slow amplitude modulation. The gentle sway creates a safe, enveloping acoustic space.',tags:['Nature'],sound:'wind',vol:0.2,cover:'cover-nature'},
+{id:'thunder',cat:'nature',icon:'⛈️',title:'Thunderstorm Night',sub:'Rain + Distant Thunder · ∞ min',desc:'Layered rain with occasional low-frequency thunder bursts. The deep rumble triggers somatic relaxation. NEW',tags:['Nature','New'],sound:'thunderstorm',vol:0.18,cover:'cover-nature'},
+{id:'campfire',cat:'nature',icon:'🔥',title:'Crackling Campfire',sub:'Fire Ambience · ∞ min',desc:'Random crackle impulses with a warm low-frequency bed. Primal comfort of a hearth — one of humanity\'s oldest sleep cues. NEW',tags:['Nature','New'],sound:'campfire',vol:0.15,cover:'cover-nature'},
+{id:'stream',cat:'nature',icon:'💧',title:'Babbling Brook',sub:'Mountain Stream · ∞ min',desc:'Bubbling water with random splashes. The irregular yet gentle pattern provides excellent noise masking. NEW',tags:['Nature','New'],sound:'stream',vol:0.18,cover:'cover-nature'},
+{id:'forest',cat:'nature',icon:'🐦',title:'Forest Birdsong',sub:'Woodland Dawn Chorus · ∞ min',desc:'Ambient wind with occasional FM-synthesized bird chirps. Dawn chorus signals safety to ancient threat-detection circuits. NEW',tags:['Nature','New'],sound:'forest',vol:0.18,cover:'cover-nature'},
+{id:'delta',cat:'brain',icon:'🌙',title:'Delta Wave Deep Sleep',sub:'Binaural 2Hz · ∞ min · 🎧',desc:'0.5-4Hz delta carrier enhances N3 slow-wave sleep. Use headphones — the frequency differential between ears entrains brainwaves toward deep restorative rest.',tags:['Delta 2Hz','Popular'],sound:'deltaWaves',vol:0.15,cover:'cover-brain'},
+{id:'theta',cat:'brain',icon:'🌅',title:'Theta Meditation Bridge',sub:'Binaural 6Hz · ∞ min · 🎧',desc:'The twilight zone between wakefulness and sleep. Ideal for pre-sleep meditation, creative visualization, or transitioning from a busy mind.',tags:['Theta 6Hz'],sound:'thetaWaves',vol:0.15,cover:'cover-brain'},
+{id:'alpha',cat:'brain',icon:'☁️',title:'Alpha Relaxation Wave',sub:'Binaural 10Hz · ∞ min · 🎧',desc:'The calm-alert state. Alpha waves (8-13Hz) are associated with relaxed wakefulness — ideal for winding down before bed. NEW',tags:['Alpha 10Hz','New'],sound:'alphaWaves',vol:0.15,cover:'cover-brain'},
+{id:'schumann',cat:'brain',icon:'🌍',title:'Schumann Resonance',sub:'Binaural 7.83Hz · ∞ min · 🎧',desc:'The Earth\'s electromagnetic "heartbeat" frequency. Studies suggest entrainment to 7.83Hz may improve sleep quality. NEW',tags:['7.83Hz','New'],sound:'schumann',vol:0.15,cover:'cover-brain'},
+{id:'gamma',cat:'brain',icon:'⚡',title:'Gamma Focus Wave',sub:'Binaural 40Hz · ∞ min · 🎧',desc:'High-frequency gamma (30-100Hz) linked to heightened awareness. Low volume — use for focused meditation before sleep. NEW',tags:['Gamma 40Hz','New'],sound:'gammaWaves',vol:0.08,cover:'cover-brain'},
+{id:'hz432',cat:'brain',icon:'🎵',title:'432Hz Healing Resonance',sub:'Pure Tone + Harmonics · ∞ min',desc:'The "Verdi tuning" — 432Hz believed mathematically consistent with the universe. Gentle overtones create a meditative harmonic field. NEW',tags:['432Hz','New'],sound:'hz432',vol:0.1,cover:'cover-brain'},
+{id:'hz528',cat:'brain',icon:'💜',title:'528Hz Miracle Frequency',sub:'Love Frequency · ∞ min',desc:'Called the "miracle tone." Warm harmonic stack (fundamental + 5 overtones including perfect 5th and major 3rd). NEW',tags:['528Hz','New'],sound:'hz528',vol:0.1,cover:'cover-brain'},
+{id:'white',cat:'noise',icon:'📺',title:'White Noise: Full Spectrum',sub:'Flat 20Hz-20kHz · ∞ min',desc:'Equal energy across all audible frequencies. Classic choice for masking environmental noise — ideal for shift workers and urban sleepers.',tags:['White Noise','Classic'],sound:'whiteNoise',vol:0.25,cover:'cover-noise'},
+{id:'pink',cat:'noise',icon:'🌸',title:'Pink Noise: Sleep Enhancer',sub:'1/f Spectrum · ∞ min',desc:'Decreases 3dB per octave — matches human hearing. Studies show pink noise may increase slow-wave sleep by up to 23%.',tags:['Pink Noise','Research-backed'],sound:'pinkNoise',vol:0.25,cover:'cover-noise'},
+{id:'brown',cat:'noise',icon:'🌫️',title:'Brown Noise: Deep Rumble',sub:'-6dB/oct · ∞ min',desc:'The deepest noise color — like a distant waterfall. Excellent for tinnitus masking and creating a womb-like acoustic environment.',tags:['Brown Noise'],sound:'brownNoise',vol:0.35,cover:'cover-noise'},
+{id:'violet',cat:'noise',icon:'💜',title:'Violet Noise: Airy Hiss',sub:'+6dB/oct · ∞ min',desc:'Emphasized high frequencies — like hissing steam. The opposite of brown noise. Useful for high-frequency tinnitus masking. NEW',tags:['Violet Noise','New'],sound:'violetNoise',vol:0.08,cover:'cover-noise'},
+{id:'grey',cat:'noise',icon:'⚪',title:'Grey Noise: Psychoacoustic Flat',sub:'A-Weighted · ∞ min',desc:'Psychoacoustically equal loudness across all frequencies. Perceived as perfectly "even" — neither too bright nor too dull. NEW',tags:['Grey Noise','New'],sound:'greyNoise',vol:0.2,cover:'cover-noise'},
+{id:'bowl',cat:'guided',icon:'🔔',title:'Tibetan Singing Bowl',sub:'432Hz Pentatonic · ∞ min',desc:'Hand-hammered bowl simulation with layered harmonics. The beating between overtone frequencies creates a natural binaural effect.',tags:['Sound Therapy','Premium'],sound:'singingBowl',vol:0.12,cover:'cover-guided'},
+{id:'bowl2',cat:'guided',icon:'🪷',title:'7-Bowl Chakra Ensemble',sub:'Chakra Tuning · ∞ min',desc:'Seven singing bowls tuned to chakra frequencies. Interweaving overtones engage the auditory cortex in sustained attention.',tags:['Chakra','Premium'],sound:'singingBowl',vol:0.1,cover:'cover-guided'},
+{id:'breath478',cat:'guided',icon:'🫁',title:'4-7-8 Breathing Pacer',sub:'Inhale 4s / Hold 7s / Exhale 8s · ∞ loop',desc:'Audio-cued breathing cycle. Rising tone = inhale, subtle hold tone, falling tone = exhale. Activates vagus nerve for rapid parasympathetic response. NEW',tags:['Breathing','New'],sound:'breath478',vol:0.1,cover:'cover-guided'},
+{id:'bodyscan',cat:'guided',icon:'🧘',title:'Body Scan Meditation',sub:'45s Zones · ~9 min cycle',desc:'Gentle 3-note chime clusters guide attention from feet to head. No voice — pure audio cues let your mind fill the silence. NEW',tags:['Body Scan','New'],sound:'bodyScan',vol:0.08,cover:'cover-guided'},
+{id:'pmr',cat:'guided',icon:'💆',title:'Progressive Muscle Relaxation',sub:'Tense 5s / Release 10s · ~3:30 cycle',desc:'Tone-cued tense/release cycles through 10 muscle groups. Higher tone = tense, lower tone = release. NEW',tags:['PMR','New'],sound:'pmr',vol:0.08,cover:'cover-guided'}
+];
+var activeTrack=null,activeCat='nature',favorites=JSON.parse(localStorage.getItem('sw_favorites')||'[]'),recentlyPlayed=JSON.parse(localStorage.getItem('sw_recent')||'[]'),masterVol=0.6,timerRemaining=0,timerInterval=null;
+var playerBar=document.getElementById('playerBar'),playerIcon=document.getElementById('playerIcon'),playerTitle=document.getElementById('playerTitle'),playerSubtitle=document.getElementById('playerSubtitle'),masterVolume=document.getElementById('masterVolume'),btnStop=document.getElementById('btnStop'),toast=document.getElementById('toast'),timerBtn=document.getElementById('timerBtn'),timerMenu=document.getElementById('timerMenu'),timerDropdown=document.getElementById('timerDropdown'),timerCountdown=document.getElementById('timerCountdown'),quickAccess=document.getElementById('quickAccess'),quickAccessSection=document.getElementById('quickAccessSection');
+function cardHTML(t){var f=favorites.indexOf(t.id)>=0?' active':'',tg=t.tags.map(function(x){var c='tag';if(x==='New')c+=' tag-new';else if(x==='Popular')c+=' tag-popular';else if(t.cat==='nature')c+=' tag-nature';else if(t.cat==='brain')c+=' tag-brain';else if(t.cat==='noise')c+=' tag-noise';else if(t.cat==='guided')c+=' tag-guided';return'<span class="'+c+'">'+x+'</span>';}).join('');return'<div class="audio-card" data-track="'+t.id+'"><div class="cover-art '+t.cover+'"><div class="wave"><svg viewBox="0 0 400 100" preserveAspectRatio="none" style="width:100%;height:100%;"><path d="M0 80 Q25 50 50 80 T100 80 T150 80 T200 80 T250 80 T300 80 T350 80 T400 80 L400 100 L0 100Z" fill="rgba(255,255,255,0.15)"/><path d="M0 90 Q40 65 80 90 T160 90 T240 90 T320 90 T400 90 L400 100 L0 100Z" fill="rgba(255,255,255,0.08)"/></svg></div><div class="icon">'+t.icon+'</div><div class="play-overlay"><button class="play-overlay-btn" data-track="'+t.id+'">▶</button></div></div><div class="audio-body"><div class="audio-tags">'+tg+'</div><div class="audio-title">'+t.title+'</div><div class="audio-subtitle">'+t.sub+'</div><div class="audio-desc">'+t.desc+'</div><div class="audio-controls"><button class="btn-play" data-track="'+t.id+'">▶ Play Free Preview</button><button class="btn-fav'+f+'" data-track="'+t.id+'">'+(f?'❤️':'🤍')+'</button></div><div class="volume-row"><span style="font-size:0.65rem;">🔊</span><input type="range" min="0" max="100" value="'+Math.round(t.vol*100)+'" class="track-vol" data-track="'+t.id+'"><span class="volume-label">'+Math.round(t.vol*masterVol*100)+'%</span></div></div></div>';}
+function renderCat(c){document.getElementById('grid-'+c).innerHTML=allTracks.filter(function(t){return t.cat===c;}).map(cardHTML).join('');}
+allTracks.forEach(function(t){renderCat(t.cat);});
+function rQA(){var c=[];favorites.forEach(function(id){var t=allTracks.find(function(x){return x.id===id;});if(t)c.push({id:id,icon:t.icon,title:t.title,type:'fav'});});recentlyPlayed.slice(0,5).forEach(function(id){var t=allTracks.find(function(x){return x.id===id;});if(t&&!c.some(function(x){return x.id===id;}))c.push({id:id,icon:t.icon,title:t.title,type:'recent'});});if(c.length>0){quickAccessSection.style.display='';quickAccess.innerHTML=c.map(function(x){return'<span class="quick-chip'+(x.type==='fav'?' fav':'')+'" data-track="'+x.id+'">'+x.icon+' '+x.title+(x.type==='fav'?' ❤️':'')+'</span>';}).join('');}else{quickAccessSection.style.display='none';}}
+function playTrack(t){if(activeTrack&&activeTrack.id===t.id){stopTrack();return;}stopTrack();var fn=window.SleepSounds&&window.SleepSounds[t.sound];if(typeof fn==='function'){fn(t.vol*masterVol,t.id);activeTrack=t;upUI(true);addRecent(t.id);}}
+function stopTrack(){if(window.SleepSounds)SleepSounds.stopAll();activeTrack=null;upUI(false);clearTI();}
+function upUI(p){document.querySelectorAll('.audio-card').forEach(function(c){c.classList.remove('playing');});document.querySelectorAll('.btn-play').forEach(function(b){b.classList.remove('playing');b.textContent='▶ Play Free Preview';});if(p&&activeTrack){playerBar.classList.add('visible');playerIcon.textContent=activeTrack.icon;playerTitle.textContent=activeTrack.title;playerSubtitle.textContent=activeTrack.sub;var c=document.querySelector('[data-track="'+activeTrack.id+'"]');if(c)c.classList.add('playing');var b=c?c.querySelector('.btn-play'):null;if(b){b.classList.add('playing');b.textContent='■ Stop';}}else{playerBar.classList.remove('visible');playerIcon.textContent='🎵';playerTitle.textContent='No track playing';playerSubtitle.textContent='Select a sound to begin';clearTI();}}
+function upMV(){masterVol=parseInt(masterVolume.value)/100;if(activeTrack&&window.SleepSounds)SleepSounds.setVolume(activeTrack.id,activeTrack.vol*masterVol);document.querySelectorAll('.track-vol').forEach(function(s){var t=allTracks.find(function(x){return x.id===s.dataset.track;});if(t){var l=s.parentElement.querySelector('.volume-label');if(l)l.textContent=Math.round(t.vol*masterVol*100)+'%';}});}
+function addRecent(id){recentlyPlayed=[id].concat(recentlyPlayed.filter(function(x){return x!==id;})).slice(0,10);localStorage.setItem('sw_recent',JSON.stringify(recentlyPlayed));rQA();}
+function toggleFav(id){var i=favorites.indexOf(id);if(i>=0){favorites.splice(i,1);sT('Removed from favorites');}else{favorites.push(id);sT('⭐ Added to favorites');}localStorage.setItem('sw_favorites',JSON.stringify(favorites));rQA();allTracks.forEach(function(t){renderCat(t.cat);});bindEv();}
+function setTimer(m){clearTI();timerDropdown.classList.remove('open');if(m<=0){timerBtn.textContent='⏱ Timer';timerBtn.classList.remove('active');timerCountdown.textContent='';if(window.SleepSounds)SleepSounds.clearTimer();timerRemaining=0;return;}timerRemaining=m*60;timerBtn.textContent='⏱ '+m+'m';timerBtn.classList.add('active');upTD();timerInterval=setInterval(function(){timerRemaining--;if(timerRemaining<=0){clearTI();timerBtn.textContent='⏱ Timer';timerBtn.classList.remove('active');timerCountdown.textContent='';stopTrack();sT('⏰ Sleep timer finished');}else{upTD();if(timerRemaining<=10&&window.SleepSounds)SleepSounds.fadeOut(timerRemaining);}},1000);}
+function upTD(){var m=Math.floor(timerRemaining/60),s=timerRemaining%60;timerCountdown.textContent=m+':'+(s<10?'0':'')+s;}
+function clearTI(){if(timerInterval){clearInterval(timerInterval);timerInterval=null;}timerCountdown.textContent='';}
+function sT(msg){toast.textContent=msg;toast.classList.add('show');setTimeout(function(){toast.classList.remove('show');},2000);}
+function switchTab(cat){activeCat=cat;document.querySelectorAll('.cat-tab').forEach(function(t){t.classList.remove('active');});var tab=document.querySelector('[data-cat="'+cat+'"]');if(tab)tab.classList.add('active');['nature','brain','noise','guided'].forEach(function(c){var s=document.getElementById('cat-'+c);if(s)s.style.display=c===cat?'':'none';});}
+function bindEv(){document.querySelectorAll('.btn-play,.play-overlay-btn').forEach(function(b){b.onclick=function(e){e.preventDefault();e.stopPropagation();var t=allTracks.find(function(x){return x.id===b.dataset.track;});if(t)playTrack(t);};});document.querySelectorAll('.btn-fav').forEach(function(b){b.onclick=function(e){e.preventDefault();e.stopPropagation();toggleFav(b.dataset.track);};});document.querySelectorAll('.quick-chip').forEach(function(c){c.onclick=function(){var t=allTracks.find(function(x){return x.id===c.dataset.track;});if(t){switchTab(t.cat);playTrack(t);}};});document.querySelectorAll('.track-vol').forEach(function(s){s.oninput=function(){var t=allTracks.find(function(x){return x.id===s.dataset.track;});if(t){t.vol=parseInt(s.value)/100;var l=s.parentElement.querySelector('.volume-label');if(l)l.textContent=Math.round(t.vol*masterVol*100)+'%';if(activeTrack&&activeTrack.id===s.dataset.track&&window.SleepSounds)SleepSounds.setVolume(s.dataset.track,t.vol*masterVol);}};});}
+document.querySelectorAll('.cat-tab').forEach(function(tab){tab.addEventListener('click',function(){switchTab(tab.dataset.cat);});});
+btnStop.addEventListener('click',stopTrack);masterVolume.addEventListener('input',upMV);masterVolume.value=60;
+timerBtn.addEventListener('click',function(e){e.stopPropagation();timerDropdown.classList.toggle('open');});
+document.addEventListener('click',function(){timerDropdown.classList.remove('open');});
+timerMenu.querySelectorAll('.timer-item').forEach(function(i){i.addEventListener('click',function(e){e.stopPropagation();setTimer(parseInt(i.dataset.min));});});
+document.addEventListener('keydown',function(e){if(e.code==='Space'&&e.target===document.body){e.preventDefault();if(activeTrack)stopTrack();}});
+rQA();bindEv();switchTab('nature');
 })();
 </script>
 </body>
