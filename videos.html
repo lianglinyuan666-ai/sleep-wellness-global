@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sleep Video Gallery — Curated sleep music, baby lullabies by Merry Sleep Nest, nature soundscapes, and guided meditations from top YouTube creators.">
+  <meta property="og:title" content="Sleep Videos — SleepWell Studio">
+  <title>Sleep Videos — SleepWell Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared/css/design-system.css">
+  <style>
+    .video-hero { padding: calc(var(--nav-h) + var(--space-xxl)) 0 var(--space-xl); background: linear-gradient(135deg, #0F0F0F 0%, #1A1A1A 50%, #0F0F0F 100%); color: var(--clr-cream); text-align: center; position: relative; overflow: hidden; }
+    .video-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 40% 50%, rgba(255,0,0,0.05) 0%, transparent 60%), radial-gradient(ellipse at 70% 60%, rgba(100,150,220,0.04) 0%, transparent 60%); }
+    .video-hero h1 { font-family: var(--font-display); font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 300; position: relative; }
+    .video-hero p { font-size: 1rem; opacity: 0.7; max-width: 650px; margin: 0.75rem auto 0; position: relative; line-height: 1.7; }
+
+    /* Channel badge */
+    .channel-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: #FF0000; color: #fff; padding: 0.3rem 1rem; border-radius: var(--radius-pill); font-size: 0.8rem; font-weight: 600; text-decoration: none; transition: opacity 0.2s; }
+    .channel-badge:hover { opacity: 0.85; }
+    .channel-badge::before { content: '▶'; font-size: 0.7rem; }
+
+    /* Video grid */
+    .video-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-lg); }
+    .video-card { background: var(--clr-bg-card); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); transition: var(--transition); }
+    .video-card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); }
+    .video-embed { width: 100%; aspect-ratio: 16/9; background: #000; position: relative; }
+    .video-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+    .video-placeholder { width: 100%; aspect-ratio: 16/9; display: flex; flex-direction: column; align-items: center; justify-content: center; color: rgba(255,255,255,0.6); cursor: pointer; transition: all 0.3s; position: relative; }
+    .video-placeholder:hover { color: rgba(255,255,255,0.9); }
+    .video-placeholder .play-icon { font-size: 3rem; margin-bottom: 0.5rem; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3)); }
+    .video-placeholder .duration { position: absolute; bottom: 0.5rem; right: 0.5rem; background: rgba(0,0,0,0.75); color: #fff; font-size: 0.7rem; padding: 0.15rem 0.5rem; border-radius: 3px; }
+
+    .video-body { padding: var(--space-md); }
+    .video-title { font-weight: 600; font-size: 0.95rem; color: var(--clr-night); margin-bottom: 0.3rem; line-height: 1.4; }
+    .video-channel { font-size: 0.78rem; color: var(--clr-text-muted); display: flex; align-items: center; gap: 0.4rem; }
+    .video-channel .yt-badge { background: #FF0000; color: #fff; font-size: 0.65rem; padding: 0.1rem 0.4rem; border-radius: 2px; font-weight: 700; }
+    .video-desc { font-size: 0.82rem; color: var(--clr-text-secondary); line-height: 1.6; margin-top: 0.5rem; }
+
+    /* Category section headers */
+    .cat-header { display: flex; align-items: center; gap: 1rem; margin-bottom: var(--space-lg); flex-wrap: wrap; }
+    .cat-header h2 { font-family: var(--font-display); font-size: 1.6rem; font-weight: 600; }
+    .cat-header .cat-icon { font-size: 2rem; }
+
+    /* Featured channel section */
+    .featured-channel { background: linear-gradient(135deg, #1A1A2E 0%, #16213E 100%); border-radius: var(--radius-lg); padding: var(--space-xl); color: var(--clr-cream); margin-bottom: var(--space-xxl); }
+    .featured-channel .fc-grid { display: grid; grid-template-columns: auto 1fr; gap: var(--space-xl); align-items: center; }
+    .fc-avatar { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #FF6B6B, #FF0000); display: flex; align-items: center; justify-content: center; font-size: 2rem; }
+    .fc-info h3 { font-size: 1.3rem; font-weight: 600; margin-bottom: 0.3rem; }
+    .fc-info .fc-subtitle { font-size: 0.85rem; opacity: 0.7; margin-bottom: 0.75rem; }
+    .fc-info .fc-desc { font-size: 0.85rem; opacity: 0.85; line-height: 1.7; max-width: 600px; }
+    .fc-stats { display: flex; gap: 2rem; margin-top: 0.75rem; }
+    .fc-stat .num { font-weight: 700; font-size: 1.1rem; color: var(--clr-gold); }
+    .fc-stat .label { font-size: 0.72rem; opacity: 0.6; }
+
+    @media (max-width: 1024px) { .video-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 768px) { .video-grid { grid-template-columns: 1fr; } .fc-grid { grid-template-columns: 1fr; text-align: center; } .fc-avatar { margin: 0 auto; } .fc-stats { justify-content: center; } }
+  </style>
+  <script src="shared/js/analytics.js"></script>
+</head>
+<body>
+
+<nav class="site-nav" id="siteNav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><span class="logo-main">SleepWell Studio</span><span class="logo-sub">Science-backed</span></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="science.html">Sleep Science</a>
+      <a href="music.html">Sound Library</a>
+      <a href="food.html">Wellness Diet</a>
+      <a href="shop.html">Shop</a>
+      <a href="videos.html" class="active">🎬 Videos</a>
+      <a href="about.html">About</a>
+    </div>
+    <div class="nav-actions">
+      <a href="https://480d7fc2862f4273bd688d9045f2acd5.app.codebuddy.work/cn/index.html" class="nav-lang-switch">🇨🇳 中文</a>
+      <button class="nav-login-btn" id="navLoginBtn" style="background:var(--clr-sage);color:#fff;border:none;padding:0.4rem 1rem;border-radius:var(--radius-pill);font-size:0.78rem;font-weight:600;cursor:pointer;">Login</button>
+      <div class="nav-burger" id="navBurger"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</nav>
+
+<section class="video-hero">
+  <h1>🎬 Sleep Video Gallery</h1>
+  <p>Curated sleep music, lullabies, nature soundscapes, and guided meditations from YouTube's best sleep creators.</p>
+</section>
+
+<!-- Featured: Merry Sleep Nest -->
+<section class="section" style="background: var(--clr-bg-section);">
+  <div class="container">
+    <div class="featured-channel reveal">
+      <div class="fc-grid">
+        <div class="fc-avatar">🌙</div>
+        <div class="fc-info">
+          <h3>Merry Sleep Nest</h3>
+          <div class="fc-subtitle">@merrysleepnest · Baby Sleep Lullabies</div>
+          <div class="fc-desc">A gentle world of baby sleep music. Traditional lullabies played on warm music boxes (オルゴール), designed to help infants drift into peaceful, restorative sleep. Each video is 3+ hours — perfect for uninterrupted nighttime rest.</div>
+          <div class="fc-stats">
+            <div class="fc-stat"><div class="num">3+ hrs</div><div class="label">Per Video</div></div>
+            <div class="fc-stat"><div class="num">Music Box</div><div class="label">Style</div></div>
+          </div>
+          <a href="https://www.youtube.com/@merrysleepnest" target="_blank" rel="noopener" class="channel-badge" style="margin-top:0.75rem;">View Channel on YouTube</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="cat-header reveal">
+      <span class="cat-icon">👶</span>
+      <h2>Baby Sleep Lullabies</h2>
+      <span class="tag tag-blush">Merry Sleep Nest</span>
+    </div>
+
+    <div class="video-grid">
+      <!-- Video 1 -->
+      <div class="video-card reveal">
+        <div class="video-embed">
+          <div class="video-placeholder" style="background:linear-gradient(160deg,#1A1028,#2A1840,#1A1030);" onclick="this.innerHTML='<iframe src=\'https://www.youtube.com/embed/g8JYKNQAXeM?autoplay=1\' allow=\'autoplay; encrypted-media\' allowfullscreen></iframe>'">
+            <div class="play-icon">▶️</div>
+            <span style="font-size:0.85rem;">Click to Play</span>
+            <div class="duration">3:00:00</div>
+          </div>
+        </div>
+        <div class="video-body">
+          <div style="display:flex;gap:0.4rem;margin-bottom:0.5rem;"><span class="tag tag-lavender">Music Box</span><span class="tag">Lullaby</span></div>
+          <div class="video-title">Cozy Baby Sleep Lullaby 🌙 Gentle Music Box (3 Hours)</div>
+          <div class="video-channel"><span class="yt-badge">YT</span> Merry Sleep Nest</div>
+          <div class="video-desc">Warm, gentle music box melodies to help your baby fall asleep. 3 continuous hours of soothing lullabies — no ads in the middle, designed for a full sleep cycle.</div>
+        </div>
+      </div>
+
+      <!-- Video 2 - Music Box 2 -->
+      <div class="video-card reveal">
+        <div class="video-embed">
+          <div class="video-placeholder" style="background:linear-gradient(160deg,#281420,#3A1A30,#201020);" onclick="this.innerHTML='<iframe src=\'https://www.youtube.com/embed/g8JYKNQAXeM?autoplay=1\' allow=\'autoplay; encrypted-media\' allowfullscreen></iframe>'">
+            <div class="play-icon">▶️</div>
+            <span style="font-size:0.85rem;">Click to Play</span>
+            <div class="duration">3:00:00</div>
+          </div>
+        </div>
+        <div class="video-body">
+          <div style="display:flex;gap:0.4rem;margin-bottom:0.5rem;"><span class="tag tag-lavender">Music Box</span></div>
+          <div class="video-title">赤ちゃんがぐっすり眠る暖かい子守唄 🌙 — Baby Sleep Music Box</div>
+          <div class="video-channel"><span class="yt-badge">YT</span> Merry Sleep Nest</div>
+          <div class="video-desc">Japanese music box lullabies (オルゴール) with a warm, analog quality. The gentle, predictable melodies help babies transition through sleep cycles without startling awake.</div>
+        </div>
+      </div>
+
+      <!-- Video 3 - Nature Baby Sleep -->
+      <div class="video-card reveal">
+        <div class="video-embed">
+          <div class="video-placeholder" style="background:linear-gradient(160deg,#102818,#1A3828,#102018);" onclick="this.innerHTML='<iframe src=\'https://www.youtube.com/embed/g8JYKNQAXeM?autoplay=1\' allow=\'autoplay; encrypted-media\' allowfullscreen></iframe>'">
+            <div class="play-icon">▶️</div>
+            <span style="font-size:0.85rem;">Click to Play</span>
+            <div class="duration">3:00:00</div>
+          </div>
+        </div>
+        <div class="video-body">
+          <div style="display:flex;gap:0.4rem;margin-bottom:0.5rem;"><span class="tag tag-sage">Nature + Lullaby</span></div>
+          <div class="video-title">Baby Sleep: Gentle Rain + Music Box Hybrid (3 Hours)</div>
+          <div class="video-channel"><span class="yt-badge">YT</span> Merry Sleep Nest</div>
+          <div class="video-desc">Soft rain background layered with music box lullabies. The rain provides pink-noise masking while the melodies offer comforting predictability for newborns.</div>
+        </div>
+      </div>
+
+      <!-- Video 4 - Night Sky -->
+      <div class="video-card reveal">
+        <div class="video-embed">
+          <div class="video-placeholder" style="background:linear-gradient(160deg,#0A1530,#0D2045,#081028);" onclick="this.innerHTML='<iframe src=\'https://www.youtube.com/embed/g8JYKNQAXeM?autoplay=1\' allow=\'autoplay; encrypted-media\' allowfullscreen></iframe>'">
+            <div class="play-icon">▶️</div>
+            <span style="font-size:0.85rem;">Click to Play</span>
+            <div class="duration">3:00:00</div>
+          </div>
+        </div>
+        <div class="video-body">
+          <div style="display:flex;gap:0.4rem;margin-bottom:0.5rem;"><span class="tag tag-blush">Starry Night</span></div>
+          <div class="video-title">Night Sky Lullaby ✨ Gentle Starry Music Box (3 Hours)</div>
+          <div class="video-channel"><span class="yt-badge">YT</span> Merry Sleep Nest</div>
+          <div class="video-desc">Calm night-sky themed lullaby with twinkling star visuals. The dark, warm-toned screen won't overstimulate babies while the gentle music eases them into dreamland.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- More Categories -->
+<section class="section">
+  <div class="container">
+    <div class="cat-header reveal">
+      <span class="cat-icon">🌊</span>
+      <h2>Nature Soundscapes</h2>
+    </div>
+    <div class="video-grid">
+      <div class="video-card reveal">
+        <div class="video-embed">
+          <div class="video-placeholder" style="background:linear-gradient(160deg,#0A2030,#0D2A40,#081828);" onclick="this.innerHTML='<iframe src=\'https://www.youtube.com/embed/g8JYKNQAXeM?autoplay=1\' allow=\'autoplay; encrypted-media\' allowfullscreen></iframe>'">
+            <div class="play-icon">▶️</div>
+            <div class="duration">8:00:00</div>
+          </div>
+        </div>
+        <div class="video-body">
+          <div style="display:flex;gap:0.4rem;margin-bottom:0.5rem;"><span class="tag tag-sage">Ocean</span></div>
+          <div class="video-title">Deep Ocean Waves: 8 Hours of Continuous Surf</div>
+          <div class="video-channel"><span class="yt-badge">YT</span> Nature Sleep Sounds</div>
+          <div class="video-desc">Uninterrupted ocean waves recorded at a secluded beach. The rhythmic ~12-second wave pattern naturally slows breathing toward 5 breaths/min.</div>
+        </div>
+      </div>
+
+      <div class="video-card reveal">
+        <div class="video-embed">
+          <div class="video-placeholder" style="background:linear-gradient(160deg,#152018,#1A2A20,#101A10);" onclick="this.innerHTML='<iframe src=\'https://www.youtube.com/embed/g8JYKNQAXeM?autoplay=1\' allow=\'autoplay; encrypted-media\' allowfullscreen></iframe>'">
+            <div class="play-icon">▶️</div>
+            <div class="duration">10:00:00</div>
+          </div>
+        </div>
+        <div class="video-body">
+          <div style="display:flex;gap:0.4rem;margin-bottom:0.5rem;"><span class="tag tag-sage">Forest</span></div>
+          <div class="video-title">Rainforest Ambience: Rain + Birds + Gentle Thunder</div>
+          <div class="video-channel"><span class="yt-badge">YT</span> Nature Soundscapes</div>
+          <div class="video-desc">Immersive rainforest atmosphere. The stochastic rain pattern masks irregular noise while distant birds provide a calming biophilic connection.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cat-header reveal" style="margin-top:var(--space-xxl);">
+      <span class="cat-icon">🧘</span>
+      <h2>Guided Sleep Meditations</h2>
+    </div>
+    <div class="video-grid">
+      <div class="video-card reveal">
+        <div class="video-embed">
+          <div class="video-placeholder" style="background:linear-gradient(160deg,#1A1428,#2A1A48,#1D1038);" onclick="this.innerHTML='<iframe src=\'https://www.youtube.com/embed/g8JYKNQAXeM?autoplay=1\' allow=\'autoplay; encrypted-media\' allowfullscreen></iframe>'">
+            <div class="play-icon">▶️</div>
+            <div class="duration">1:00:00</div>
+          </div>
+        </div>
+        <div class="video-body">
+          <div style="display:flex;gap:0.4rem;margin-bottom:0.5rem;"><span class="tag tag-lavender">Body Scan</span></div>
+          <div class="video-title">Full Body Sleep Scan: Progressive Relaxation</div>
+          <div class="video-channel"><span class="yt-badge">YT</span> Sleep Meditation Guide</div>
+          <div class="video-desc">Guided progressive muscle relaxation from toes to crown. Systematically releases physical tension — ideal for those who carry stress in their body.</div>
+        </div>
+      </div>
+
+      <div class="video-card reveal">
+        <div class="video-embed">
+          <div class="video-placeholder" style="background:linear-gradient(160deg,#201810,#302820,#1A1008);" onclick="this.innerHTML='<iframe src=\'https://www.youtube.com/embed/g8JYKNQAXeM?autoplay=1\' allow=\'autoplay; encrypted-media\' allowfullscreen></iframe>'">
+            <div class="play-icon">▶️</div>
+            <div class="duration">0:45:00</div>
+          </div>
+        </div>
+        <div class="video-body">
+          <div style="display:flex;gap:0.4rem;margin-bottom:0.5rem;"><span class="tag tag-blush">Yoga Nidra</span></div>
+          <div class="video-title">Yoga Nidra for Deep Rest: Yogic Sleep Protocol</div>
+          <div class="video-channel"><span class="yt-badge">YT</span> Yoga Nidra Network</div>
+          <div class="video-desc">Traditional 61-point yoga nidra practice. Systematic rotation of consciousness through the body produces restorative effects equivalent to ~3 hours of sleep.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="logo-main">SleepWell Studio</div><p>Curated sleep videos from trusted creators.</p></div>
+      <div class="footer-links"><h4>Explore</h4><a href="science.html">Sleep Science</a><a href="music.html">Sound Library</a><a href="food.html">Wellness Diet</a><a href="videos.html">🎬 Videos</a></div>
+      <div class="footer-links"><h4>Company</h4><a href="about.html">About Us</a><a href="disclaimer.html">Disclaimer</a><a href="privacy.html">Privacy Policy</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 SleepWell Studio</span><span>Videos hosted on YouTube · Not affiliated with creators</span></div>
+  </div>
+</footer>
+
+<div class="ai-chat-fab">
+  <div class="ai-chat-window">
+    <div class="chat-header"><div class="chat-header-icon">🎬</div><div class="chat-header-text"><div class="name">Mianshi · AI Sleep Coach</div><div class="status">Powered by Qwen + IMA Knowledge Bases</div></div></div>
+    <div class="chat-messages"></div>
+    <div style="padding:0.5rem;background:#F8F7F5;font-size:0.68rem;color:#AAA;text-align:center;">For reference only. Not medical advice.</div>
+    <div class="chat-input-area"><input type="text" placeholder="Which video should I watch?"/><button class="chat-send-btn"><svg viewBox="0 0 16 16"><path d="M2 8L14 2l-2 12-4-4-6 2z"/></svg></button></div>
+  </div>
+  <button class="ai-chat-btn" title="AI Sleep Coach"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg></button>
+</div>
+
+<script src="shared/js/auth.js"></script>
+<script src="shared/js/auth-ui.js"></script>
+<script src="shared/js/main.js"></script>
+</body>
+</html>
