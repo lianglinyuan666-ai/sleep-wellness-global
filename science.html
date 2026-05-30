@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sleep Science — Evidence-based articles on sleep cycles, circadian rhythms, melatonin, CBT-I, and natural sleep improvement.">
+  <meta property="og:title" content="Sleep Science — SleepWell Studio">
+  <title>Sleep Science — SleepWell Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared/css/design-system.css">
+  <style>
+    .science-hero { padding: calc(var(--nav-h) + var(--space-xxl)) 0 var(--space-xl); background: linear-gradient(135deg, #1A2520 0%, #2A3A30 50%, #1E2D25 100%); color: var(--clr-cream); text-align: center; position: relative; overflow: hidden; }
+    .science-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 20% 50%, rgba(155,175,155,0.08) 0%, transparent 60%), radial-gradient(ellipse at 80% 30%, rgba(197,184,212,0.06) 0%, transparent 60%); }
+    .science-hero h1 { font-family: var(--font-display); font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 300; position: relative; }
+    .science-hero p { font-size: 1rem; opacity: 0.7; max-width: 600px; margin: 0.75rem auto 0; position: relative; line-height: 1.7; }
+
+    /* Article cover CSS art */
+    .article-hero { width: 100%; aspect-ratio: 16/9; border-radius: var(--radius-lg); overflow: hidden; position: relative; }
+    .ah-deep-sleep { background: linear-gradient(160deg, #0A1628 0%, #162A48 40%, #0D1F35 100%); }
+    .ah-deep-sleep::before { content: ''; position: absolute; bottom: 15%; left: 50%; transform: translateX(-50%); width: 60%; height: 50%; border-radius: 50%; background: radial-gradient(ellipse, rgba(100,160,220,0.25) 0%, rgba(40,80,140,0.1) 60%, transparent 100%); }
+    .ah-deep-sleep::after { content: ''; position: absolute; top: 10%; right: 15%; width: 100px; height: 100px; border-radius: 50%; background: radial-gradient(circle, rgba(200,220,255,0.3) 0%, transparent 70%); box-shadow: 0 0 40px rgba(150,200,255,0.15); }
+    .ah-cbti { background: linear-gradient(160deg, #1A1428 0%, #2A1A48 40%, #1D1038 100%); }
+    .ah-cbti::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(180,160,220,0.06) 3px, rgba(180,160,220,0.06) 4px); }
+    .ah-cbti::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 200px; height: 200px; border: 2px solid rgba(180,160,220,0.15); border-radius: 50%; }
+    .ah-melatonin { background: linear-gradient(160deg, #28142A 0%, #3A1A40 40%, #2A1030 100%); }
+    .ah-melatonin::before { content: ''; position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%); width: 50px; height: 50px; border-radius: 50%; background: radial-gradient(circle, rgba(200,140,220,0.4) 0%, transparent 70%); box-shadow: 0 0 60px 20px rgba(180,120,200,0.25); }
+    .ah-melatonin::after { content: ''; position: absolute; bottom: 10%; left: 50%; transform: translateX(-50%); width: 70%; height: 30%; border-radius: 50%; background: radial-gradient(ellipse, rgba(140,100,180,0.1) 0%, transparent 70%); }
+    .ah-circadian { background: linear-gradient(160deg, #1A2814 0%, #283A18 40%, #1C3010 100%); }
+    .ah-circadian::before { content: ''; position: absolute; top: 10%; left: 50%; transform: translateX(-50%); width: 80px; height: 80px; border-radius: 50%; background: radial-gradient(circle, rgba(220,240,180,0.4) 0%, rgba(180,200,120,0.15) 50%, transparent 70%); box-shadow: 0 0 50px 15px rgba(200,230,140,0.2); }
+    .ah-circadian::after { content: ''; position: absolute; top: 10%; left: 10%; width: 40px; height: 40px; border-radius: 50%; background: rgba(200,220,160,0.1); }
+    .ah-hot-bath { background: linear-gradient(160deg, #281A14 0%, #382A18 40%, #302010 100%); }
+    .ah-hot-bath::before { content: ''; position: absolute; bottom: 5%; left: 50%; transform: translateX(-50%); width: 60%; height: 25%; border-radius: 50% 50% 30% 30% / 60% 60% 40% 40%; background: linear-gradient(180deg, rgba(240,180,120,0.15) 0%, rgba(200,120,60,0.08) 100%); }
+    .ah-hot-bath::after { content: ''; position: absolute; top: 20%; left: 30%; width: 60px; height: 60px; background: radial-gradient(circle, rgba(255,180,100,0.2) 0%, transparent 70%); border-radius: 50%; }
+    .ah-baby-sleep { background: linear-gradient(160deg, #14202A 0%, #182A3A 40%, #10202A 100%); }
+    .ah-baby-sleep::before { content: ''; position: absolute; top: 15%; left: 50%; transform: translateX(-50%); width: 50px; height: 50px; border-radius: 50%; background: radial-gradient(circle, rgba(180,220,255,0.35) 0%, transparent 70%); box-shadow: 0 0 30px 8px rgba(150,200,255,0.15); }
+    .ah-baby-sleep::after { content: ''; position: absolute; bottom: 15%; left: 50%; transform: translateX(-50%); width: 70px; height: 20px; border-radius: 50%; background: radial-gradient(ellipse, rgba(140,180,220,0.1) 0%, transparent 70%); }
+
+    .article-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-lg); }
+    .article-card { background: var(--clr-bg-card); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); transition: var(--transition); }
+    .article-card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); }
+    .article-body { padding: var(--space-md); }
+    .article-title { font-family: var(--font-display); font-size: 1.2rem; font-weight: 600; color: var(--clr-night); margin-bottom: 0.5rem; line-height: 1.4; }
+    .article-excerpt { font-size: 0.88rem; color: var(--clr-text-secondary); line-height: 1.7; margin-bottom: 1rem; }
+    .article-meta { display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; color: var(--clr-text-muted); }
+    .article-source { font-size: 0.7rem; background: var(--clr-bg-section); padding: 0.2rem 0.6rem; border-radius: var(--radius-pill); }
+
+    /* Deep dive mini cards */
+    .mini-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-md); margin-top: var(--space-xl); }
+    .mini-card { background: var(--clr-bg-card); border-radius: var(--radius-lg); padding: var(--space-md); box-shadow: var(--shadow-sm); border-left: 4px solid var(--clr-sage); transition: var(--transition); }
+    .mini-card:hover { box-shadow: var(--shadow-md); }
+    .mini-card:nth-child(2) { border-left-color: var(--clr-lavender); }
+    .mini-card:nth-child(3) { border-left-color: var(--clr-blush); }
+    .mini-card:nth-child(4) { border-left-color: var(--clr-gold); }
+    .mini-card h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.4rem; color: var(--clr-night); }
+    .mini-card p { font-size: 0.82rem; color: var(--clr-text-secondary); line-height: 1.6; }
+
+    /* Sidebar */
+    .content-layout { display: grid; grid-template-columns: 1fr 280px; gap: var(--space-xl); align-items: start; }
+    .sidebar-card { background: var(--clr-bg-card); border-radius: var(--radius-lg); padding: var(--space-md); box-shadow: var(--shadow-sm); margin-bottom: var(--space-md); }
+    .sidebar-card h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.75rem; color: var(--clr-sage-deep); }
+    .sidebar-card ul { list-style: none; padding: 0; }
+    .sidebar-card li { font-size: 0.82rem; color: var(--clr-text-secondary); padding: 0.4rem 0; border-bottom: 1px solid var(--clr-sand); }
+    .sidebar-card li:last-child { border-bottom: none; }
+    .sidebar-card li::before { content: '→ '; color: var(--clr-sage); }
+
+    @media (max-width: 768px) { .content-layout { grid-template-columns: 1fr; } .article-grid { grid-template-columns: 1fr; } .mini-grid { grid-template-columns: 1fr; } }
+  </style>
+  <script src="shared/js/analytics.js"></script>
+</head>
+<body>
+
+<nav class="site-nav" id="siteNav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><span class="logo-main">SleepWell Studio</span><span class="logo-sub">Science-backed</span></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="science.html" class="active">Sleep Science</a>
+      <a href="music.html">Sound Library</a>
+      <a href="food.html">Wellness Diet</a>
+      <a href="shop.html">Shop</a>
+      <a href="videos.html">🎬 Videos</a>
+      <a href="about.html">About</a>
+    </div>
+    <div class="nav-actions">
+      <a href="https://480d7fc2862f4273bd688d9045f2acd5.app.codebuddy.work/cn/index.html" class="nav-lang-switch">🇨🇳 中文</a>
+      <button class="nav-login-btn" id="navLoginBtn" style="background:var(--clr-sage);color:#fff;border:none;padding:0.4rem 1rem;border-radius:var(--radius-pill);font-size:0.78rem;font-weight:600;cursor:pointer;">Login</button>
+      <div class="nav-burger" id="navBurger"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</nav>
+
+<section class="science-hero">
+  <h1>Sleep Science</h1>
+  <p>Evidence-based knowledge from sleep medicine, neuroscience, and traditional wellness — curated by our IMA knowledge bases.</p>
+</section>
+
+<section class="section" style="background: var(--clr-bg-section);">
+  <div class="container">
+    <div class="content-layout">
+      <div>
+        <div class="label-tag reveal">Featured Articles</div>
+        <h2 class="heading-h2 reveal" style="margin:0.75rem 0 var(--space-lg);">Essential Sleep Knowledge</h2>
+
+        <div class="article-grid">
+          <!-- Article 1: Deep Sleep -->
+          <article class="article-card reveal">
+            <div class="article-hero ah-deep-sleep"></div>
+            <div class="article-body">
+              <div style="display:flex;gap:0.5rem;margin-bottom:0.6rem;">
+                <span class="tag tag-sage">Sleep Science</span>
+                <span class="article-source">IMA: 好睡眠</span>
+              </div>
+              <h3 class="article-title">Why Deep Sleep Is Your Body's Reset Button</h3>
+              <p class="article-excerpt">During N3 slow-wave sleep, your brain clears metabolic waste via the glymphatic system, consolidates memories, and your immune system releases cytokines. Adults need 1.5-2 hours of deep sleep nightly for optimal restoration.</p>
+              <div class="article-meta"><span>May 28, 2026 · 7 min read</span><span style="color:var(--clr-sage-deep);font-weight:600;">Read More →</span></div>
+            </div>
+          </article>
+
+          <!-- Article 2: CBT-I -->
+          <article class="article-card reveal">
+            <div class="article-hero ah-cbti"></div>
+            <div class="article-body">
+              <div style="display:flex;gap:0.5rem;margin-bottom:0.6rem;">
+                <span class="tag tag-lavender">Clinical Therapy</span>
+                <span class="article-source">IMA: 正念认知睡眠</span>
+              </div>
+              <h3 class="article-title">CBT-I: The Gold Standard for Chronic Insomnia</h3>
+              <p class="article-excerpt">Cognitive Behavioral Therapy for Insomnia (CBT-I) achieves 70-80% efficacy without medication. Through sleep restriction, stimulus control, and cognitive restructuring, it rewires maladaptive sleep beliefs built over years.</p>
+              <div class="article-meta"><span>May 25, 2026 · 10 min read</span><span style="color:var(--clr-sage-deep);font-weight:600;">Read More →</span></div>
+            </div>
+          </article>
+
+          <!-- Article 3: Melatonin -->
+          <article class="article-card reveal">
+            <div class="article-hero ah-melatonin"></div>
+            <div class="article-body">
+              <div style="display:flex;gap:0.5rem;margin-bottom:0.6rem;">
+                <span class="tag tag-blush">Hormones</span>
+                <span class="article-source">IMA: 好睡眠</span>
+              </div>
+              <h3 class="article-title">Melatonin: Your Body's Natural Sleep Hormone — Facts vs Myths</h3>
+              <p class="article-excerpt">Melatonin signals "it's dark" to your brain, not "go to sleep." Blue light from screens suppresses melatonin by up to 50%. Here's what the science actually says about supplementation, dosage (0.3-5mg), and timing.</p>
+              <div class="article-meta"><span>May 22, 2026 · 8 min read</span><span style="color:var(--clr-sage-deep);font-weight:600;">Read More →</span></div>
+            </div>
+          </article>
+
+          <!-- Article 4: Circadian -->
+          <article class="article-card reveal">
+            <div class="article-hero ah-circadian"></div>
+            <div class="article-body">
+              <div style="display:flex;gap:0.5rem;margin-bottom:0.6rem;">
+                <span class="tag tag-sage">Chronobiology</span>
+                <span class="article-source">IMA: 睡眠呼吸冥想养生</span>
+              </div>
+              <h3 class="article-title">The Circadian Rhythm: Ancient Wisdom Meets Modern Chronobiology</h3>
+              <p class="article-excerpt">The Huangdi Neijing recorded sleep-wake cycles 2000+ years ago: "Yang qi exhausts, yin qi flourishes — one sleeps." Modern science confirms: our SCN master clock aligns hundreds of physiological processes to a ~24.2hr rhythm.</p>
+              <div class="article-meta"><span>May 20, 2026 · 9 min read</span><span style="color:var(--clr-sage-deep);font-weight:600;">Read More →</span></div>
+            </div>
+          </article>
+
+          <!-- Article 5: Hot Bath -->
+          <article class="article-card reveal">
+            <div class="article-hero ah-hot-bath"></div>
+            <div class="article-body">
+              <div style="display:flex;gap:0.5rem;margin-bottom:0.6rem;">
+                <span class="tag tag-blush">Lifestyle</span>
+                <span class="article-source">IMA: 好睡眠</span>
+              </div>
+              <h3 class="article-title">The 90-Minute Rule: Why a Hot Bath Before Bed Works</h3>
+              <p class="article-excerpt">A warm bath (40-42°C) 90 minutes before bed triggers a 0.5-1°C core body temperature drop — the physiological signal for sleep onset. Meta-analysis confirms: hot baths reduce sleep onset latency by ~10 minutes on average.</p>
+              <div class="article-meta"><span>May 18, 2026 · 6 min read</span><span style="color:var(--clr-sage-deep);font-weight:600;">Read More →</span></div>
+            </div>
+          </article>
+
+          <!-- Article 6: Baby Sleep -->
+          <article class="article-card reveal">
+            <div class="article-hero ah-baby-sleep"></div>
+            <div class="article-body">
+              <div style="display:flex;gap:0.5rem;margin-bottom:0.6rem;">
+                <span class="tag tag-lavender">Developmental</span>
+                <span class="article-source">IMA: 正念认知睡眠</span>
+              </div>
+              <h3 class="article-title">Infant Sleep Architecture: How Baby Brains Build While Dreaming</h3>
+              <p class="article-excerpt">Newborns spend 50% of sleep in REM — double the adult proportion. This REM-heavy architecture supports neural circuit formation. White noise at ~50dB mimics womb acoustics, helping infants transition between sleep cycles.</p>
+              <div class="article-meta"><span>May 15, 2026 · 7 min read</span><span style="color:var(--clr-sage-deep);font-weight:600;">Read More →</span></div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Deep Dive Section -->
+        <div class="label-tag reveal" style="margin-top:var(--space-xxl);">Deep Dive Topics</div>
+        <h2 class="heading-h2 reveal" style="margin:0.75rem 0 var(--space-lg);">Explore Further</h2>
+
+        <div class="mini-grid">
+          <div class="mini-card reveal">
+            <h4>🎵 Pink Noise vs White Noise for Sleep</h4>
+            <p>Pink noise (1/f spectrum) may enhance slow-wave sleep more than white noise. Research shows pink noise exposure during sleep increased slow-wave activity by 23% in older adults — potentially slowing age-related memory decline.</p>
+            <span class="article-source" style="margin-top:0.5rem;display:inline-block;">IMA: 好睡眠 · Confidence 8/10</span>
+          </div>
+          <div class="mini-card reveal">
+            <h4>🧠 The Neurobiology of Insomnia</h4>
+            <p>Chronic insomnia involves hyperactivity in the default mode network and elevated cortisol at bedtime. The "hyperarousal" model explains why insomniacs feel simultaneously exhausted and wired — a state fMRI studies confirm with increased brain metabolism during sleep attempts.</p>
+            <span class="article-source" style="margin-top:0.5rem;display:inline-block;">IMA: 正念认知睡眠 · Confidence 9/10</span>
+          </div>
+          <div class="mini-card reveal">
+            <h4>🌿 Chinese Herbs for Sleep: A Systematic Overview</h4>
+            <p>Suan Zao Ren (Ziziphus jujuba) acts as a GABA-A receptor agonist. Bai Zi Ren, Fu Ling, and Yuan Zhi have been studied for their anxiolytic and sleep-promoting properties. A 2023 meta-analysis of 18 RCTs found significant improvement in sleep quality scores.</p>
+            <span class="article-source" style="margin-top:0.5rem;display:inline-block;">IMA: 睡眠呼吸冥想养生 · Confidence 7/10</span>
+          </div>
+          <div class="mini-card reveal">
+            <h4>🫁 4-7-8 Breathing: The Vagal Brake for Sleep</h4>
+            <p>Dr. Andrew Weil's 4-7-8 technique (inhale 4s, hold 7s, exhale 8s) activates the vagus nerve's parasympathetic response. Extended exhalation increases heart rate variability (HRV), signaling the body to downshift from "fight-or-flight" to "rest-and-digest."</p>
+            <span class="article-source" style="margin-top:0.5rem;display:inline-block;">IMA: 好睡眠 · Confidence 8/10</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <aside>
+        <div class="sidebar-card">
+          <h4>📚 Knowledge Sources</h4>
+          <ul>
+            <li>好睡眠 (581 members) — Sleep science encyclopedia</li>
+            <li>正念认知睡眠 (225 members) — MCBT-I &amp; academic literature</li>
+            <li>睡眠呼吸冥想养生 — TCM &amp; integrative sleep medicine</li>
+            <li>梁林源的个人知识库 — Original content</li>
+          </ul>
+        </div>
+        <div class="sidebar-card">
+          <h4>🔖 Topic Categories</h4>
+          <ul>
+            <li>Sleep Architecture &amp; Cycles</li>
+            <li>Circadian Rhythms &amp; Chronobiology</li>
+            <li>Insomnia &amp; CBT-I Therapy</li>
+            <li>Melatonin &amp; Sleep Hormones</li>
+            <li>Traditional Chinese Sleep Medicine</li>
+            <li>Infant &amp; Child Sleep Development</li>
+            <li>Sleep Environment Optimization</li>
+            <li>Breathing &amp; Relaxation Techniques</li>
+          </ul>
+        </div>
+        <div class="sidebar-card">
+          <h4>🤖 Ask AI Coach</h4>
+          <p style="font-size:0.82rem;color:var(--clr-text-secondary);line-height:1.6;">Have a specific sleep question? Our AI coach draws from all IMA knowledge bases.</p>
+          <a href="index.html" style="display:block;margin-top:0.75rem;font-size:0.85rem;font-weight:600;color:var(--clr-sage-deep);">Chat with AI Coach →</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="logo-main">SleepWell Studio</div><p>Science-backed sleep wellness for a calmer, more restorative life.</p></div>
+      <div class="footer-links"><h4>Explore</h4><a href="science.html">Sleep Science</a><a href="music.html">Sound Library</a><a href="food.html">Wellness Diet</a><a href="shop.html">Shop</a><a href="videos.html">🎬 Videos</a></div>
+      <div class="footer-links"><h4>Company</h4><a href="about.html">About Us</a><a href="disclaimer.html">Disclaimer</a><a href="privacy.html">Privacy Policy</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 SleepWell Studio. All rights reserved.</span><span>Content from IMA Knowledge Bases · For Wellness Education Only</span></div>
+  </div>
+</footer>
+
+<div class="ai-chat-fab">
+  <div class="ai-chat-window">
+    <div class="chat-header"><div class="chat-header-icon">🌿</div><div class="chat-header-text"><div class="name">Mianshi · AI Sleep Coach</div><div class="status">Powered by Qwen + IMA Knowledge Bases</div></div></div>
+    <div class="chat-messages"></div>
+    <div style="padding:0.5rem;background:#F8F7F5;font-size:0.68rem;color:#AAA;text-align:center;">For reference only. Not medical advice.</div>
+    <div class="chat-input-area"><input type="text" placeholder="Ask about sleep, wellness…"/><button class="chat-send-btn"><svg viewBox="0 0 16 16"><path d="M2 8L14 2l-2 12-4-4-6 2z"/></svg></button></div>
+  </div>
+  <button class="ai-chat-btn" title="AI Sleep Coach"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg></button>
+</div>
+
+<script src="shared/js/auth.js"></script>
+<script src="shared/js/auth-ui.js"></script>
+<script src="shared/js/main.js"></script>
+</body>
+</html>
