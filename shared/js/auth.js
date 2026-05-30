@@ -15,14 +15,14 @@
 (function () {
   'use strict';
 
-  // ===== FIREBASE CONFIG — Replace with your own =====
+  // ===== FIREBASE CONFIG — sleephealth-502c6 =====
   const FIREBASE_CONFIG = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT.appspot.com",
-    messagingSenderId: "000000000000",
-    appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyCGgIdSrUWZ4kUHUew7xUtLSGdjzmv7QDA",
+    authDomain: "sleephealth-502c6.firebaseapp.com",
+    projectId: "sleephealth-502c6",
+    storageBucket: "sleephealth-502c6.firebasestorage.app",
+    messagingSenderId: "570464876047",
+    appId: "1:570464876047:web:bd95e5543252cedee9d57a"
   };
   // ===================================================
 
