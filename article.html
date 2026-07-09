@@ -3,47 +3,69 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title id="page-title">Article - SleepWell Studio</title>
+<title id="page-title">Article — SleepWell Studio</title>
+<meta name="description" content="Evidence-based sleep science articles, curated from IMA knowledge bases by SleepWell Studio.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared/css/design-system.css">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#f5f0ff;color:#333;min-height:100vh}
-.nav{background:#fff;padding:12px 20px;display:flex;align-items:center;gap:16px;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
-.nav a{color:#6b4ce6;text-decoration:none;font-weight:600;font-size:14px}
-.nav a:hover{text-decoration:underline}
-.article-container{max-width:760px;margin:32px auto;background:#fff;border-radius:16px;padding:40px 36px;box-shadow:0 4px 20px rgba(0,0,0,0.06)}
-.article-tag{display:inline-block;background:#f0e6ff;color:#6b4ce6;padding:4px 14px;border-radius:20px;font-size:12px;font-weight:600;margin-bottom:12px}
-.article-title{font-size:28px;font-weight:800;color:#1a1a2e;line-height:1.35;margin-bottom:12px}
-.article-meta{display:flex;gap:16px;color:#999;font-size:13px;margin-bottom:28px;flex-wrap:wrap}
-.article-body{line-height:1.85;font-size:15.5px;color:#2d2d2d}
-.article-body h2{font-size:20px;font-weight:700;color:#6b4ce6;margin:28px 0 12px}
-.article-body h3{font-size:17px;font-weight:700;color:#333;margin:22px 0 10px}
-.article-body p{margin-bottom:14px}
-.article-body ul,.article-body ol{margin:10px 0 14px 20px}
-.article-body li{margin-bottom:7px}
-.article-body strong{color:#6b4ce6}
-.article-body blockquote{border-left:4px solid #6b4ce6;background:#f8f4ff;padding:12px 18px;margin:16px 0;border-radius:0 8px 8px 0;color:#555;font-style:italic}
-.article-body .tip-box{background:#f0fdf4;border-left:4px solid #22c55e;padding:14px 18px;margin:16px 0;border-radius:0 8px 8px 0}
-.article-body .warn-box{background:#fef3cd;border-left:4px solid #f59e0b;padding:14px 18px;margin:16px 0;border-radius:0 8px 8px 0}
-.article-body table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px}
-.article-body th,.article-body td{border:1px solid #e5e7eb;padding:10px 14px;text-align:left}
-.article-body th{background:#f5f0ff;color:#6b4ce6;font-weight:700}
-.article-footer{margin-top:36px;padding-top:24px;border-top:1px solid #eee;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
-.article-footer a{color:#6b4ce6;text-decoration:none;font-weight:600;font-size:14px}
-.article-footer a:hover{text-decoration:underline}
-.error-msg{text-align:center;padding:60px 20px;color:#999;font-size:16px}
-.error-msg .emoji{font-size:48px;margin-bottom:16px}
-@media(max-width:600px){.article-container{padding:24px 18px;margin:16px 8px;border-radius:12px}.article-title{font-size:22px}}
+  .article-wrap { max-width: 820px; margin: 0 auto; padding: calc(var(--nav-h) + var(--space-xl)) var(--space-md) var(--space-xxl); }
+  .breadcrumb { font-size: 0.82rem; color: var(--clr-text-muted); margin-bottom: var(--space-lg); }
+  .breadcrumb a { color: var(--clr-sage-deep); font-weight: 600; }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .article-tag { display: inline-block; background: rgba(155,175,155,0.18); color: var(--clr-sage-deep); padding: 0.3rem 0.9rem; border-radius: var(--radius-pill); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em; margin-bottom: var(--space-md); }
+  .article-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; line-height: 1.2; color: var(--clr-night); margin-bottom: var(--space-md); }
+  .article-meta { display: flex; gap: 1.25rem; align-items: center; color: var(--clr-text-muted); font-size: 0.85rem; margin-bottom: var(--space-lg); flex-wrap: wrap; padding-bottom: var(--space-md); border-bottom: 1px solid var(--clr-sand); }
+  .article-body { line-height: 1.9; font-size: 1.02rem; color: var(--clr-text-primary); }
+  .article-body h2 { font-family: var(--font-display); font-size: 1.7rem; font-weight: 600; color: var(--clr-night); margin: var(--space-lg) 0 var(--space-sm); }
+  .article-body h3 { font-size: 1.2rem; font-weight: 700; color: var(--clr-sage-deep); margin: var(--space-md) 0 var(--space-xs); }
+  .article-body p { margin-bottom: var(--space-sm); }
+  .article-body ul, .article-body ol { margin: var(--space-sm) 0 var(--space-sm) 1.4rem; }
+  .article-body li { margin-bottom: 0.5rem; }
+  .article-body strong { color: var(--clr-sage-deep); }
+  .article-body blockquote { border-left: 4px solid var(--clr-lavender); background: var(--clr-bg-section); padding: 1rem 1.4rem; margin: var(--space-md) 0; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; font-style: italic; color: var(--clr-text-secondary); }
+  .article-body .tip-box { background: rgba(155,175,155,0.12); border-left: 4px solid var(--clr-sage); padding: 1rem 1.4rem; margin: var(--space-md) 0; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+  .article-body .warn-box { background: rgba(201,169,110,0.12); border-left: 4px solid var(--clr-gold); padding: 1rem 1.4rem; margin: var(--space-md) 0; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+  .article-body table { width: 100%; border-collapse: collapse; margin: var(--space-md) 0; font-size: 0.92rem; }
+  .article-body th, .article-body td { border: 1px solid var(--clr-sand); padding: 0.7rem 1rem; text-align: left; }
+  .article-body th { background: var(--clr-bg-section); color: var(--clr-sage-deep); font-weight: 700; }
+  .article-footer { margin-top: var(--space-xl); padding-top: var(--space-lg); border-top: 1px solid var(--clr-sand); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-sm); }
+  .error-msg { text-align: center; padding: 4rem 1rem; color: var(--clr-text-muted); }
+  .error-msg .emoji { font-size: 3rem; margin-bottom: 1rem; }
+  @media (max-width: 600px) { .article-wrap { padding-top: calc(var(--nav-h) + var(--space-lg)); } .article-title { font-size: 1.8rem; } }
 </style>
+<script src="shared/js/analytics.js"></script>
 </head>
 <body>
 
-<nav class="nav">
-  <a href="index.html">← Home</a>
-  <a href="science.html">Sleep Science</a>
-  <a href="music.html">Sound Library</a>
+<nav class="site-nav" id="siteNav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><span class="logo-main">SleepWell Studio</span><span class="logo-sub">Science-backed</span></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="science.html" class="active">Sleep Science</a>
+      <a href="music.html">Sound Library</a>
+      <a href="food.html">Wellness Diet</a>
+      <a href="shop.html">Shop</a>
+      <a href="videos.html">🎬 Videos</a>
+      <a href="about.html">About</a>
+    </div>
+    <div class="nav-actions">
+      <a href="https://cd1b8ef730e74071b5513f9e808cac32.app.codebuddy.work/" class="nav-lang-switch">🇨🇳 中文</a>
+      <div class="nav-burger" id="navBurger"><span></span><span></span><span></span></div>
+    </div>
+  </div>
 </nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a><a href="science.html">Sleep Science</a><a href="music.html">Sound Library</a>
+  <a href="food.html">Wellness Diet</a><a href="shop.html">Shop</a><a href="videos.html">🎬 Videos</a><a href="about.html">About</a>
+</div>
 
-<div class="article-container" id="article-content"></div>
+<div class="article-wrap">
+  <div class="breadcrumb"><a href="science.html">← Sleep Science</a></div>
+  <div id="article-content"></div>
+</div>
 
 <script>
 const articles = {
@@ -51,7 +73,7 @@ const articles = {
     tag: "Sleep Basics",
     title: "Sleep Cycles Explained: The 90-Minute Rhythm",
     date: "2024-12-10",
-    read: "8 分钟",
+    read: "8 min read",
     emoji: "🔄",
     body: `<h2>What Are Sleep Cycles?</h2>
 <p>Sleep is not a uniform state — it cycles approximately every <strong>90 minutes</strong> through distinct stages. Understanding these cycles is the key to waking up refreshed rather than groggy.</p>
@@ -79,7 +101,7 @@ const articles = {
     tag: "Behavioral Therapy",
     title: "CBT-I: Cognitive Behavioral Therapy for Insomnia — The First-Line Treatment",
     date: "2024-12-15",
-    read: "10 分钟",
+    read: "10 min read",
     emoji: "🧠",
     body: `<h2>What Is CBT-I?</h2>
 <p><strong>Cognitive Behavioral Therapy for Insomnia (CBT-I)</strong> is a structured, evidence-based treatment that helps you identify and replace thoughts and behaviors that cause or worsen sleep problems. The American College of Physicians (ACP) and NIH recommend it as the <strong>first-line treatment for chronic insomnia</strong> — with better long-term outcomes than sleeping pills.</p>
@@ -118,7 +140,7 @@ const articles = {
     tag: "Sleep Supplement",
     title: "Melatonin: Your Body's Natural Sleep Signal — A Complete Evidence Review",
     date: "2024-12-20",
-    read: "9 分钟",
+    read: "9 min read",
     emoji: "🌙",
     body: `<h2>The Basics</h2>
 <p>Melatonin is a hormone naturally produced by the pineal gland in darkness, signaling to your body that "it is nighttime." Melatonin supplements are <strong>not sleeping pills</strong> — they are <strong>chronobiotic agents</strong>: they adjust the timing of sleep, but do not directly induce it.</p>
@@ -142,7 +164,7 @@ const articles = {
     tag: "Science & Mechanism",
     title: "Circadian Rhythm: Your Internal Clock Explained",
     date: "2025-01-05",
-    read: "7 分钟",
+    read: "7 min read",
     emoji: "⏰",
     body: `<h2>What Is the Circadian Rhythm?</h2>
 <p>Your circadian rhythm is an approximately 24-hour internal clock, driven by the <strong>suprachiasmatic nucleus (SCN)</strong> in the hypothalamus. It regulates not only sleep-wake timing but also hormone release, body temperature, digestion, and even cellular repair schedules.</p>
@@ -165,7 +187,7 @@ const articles = {
     tag: "Sleep Technique",
     title: "The 90-Minute Rule: Precisely Time Your Sleep Cycles for Perfect Mornings",
     date: "2025-01-12",
-    read: "5 分钟",
+    read: "5 min read",
     emoji: "⏱️",
     body: `<h2>Why 90 Minutes?</h2>
 <p>Each complete sleep cycle (light sleep → deep sleep → REM) lasts approximately <strong>90 minutes</strong>. Waking at the end of a cycle — during light sleep — means waking naturally and feeling refreshed. Waking mid-cycle (especially during deep sleep) causes <strong>sleep inertia</strong>: that groggy, disoriented feeling that can last up to an hour.</p>
@@ -183,7 +205,7 @@ const articles = {
     tag: "Parenting & Sleep",
     title: "Baby Sleep: A Science-Backed Guide for Exhausted Parents",
     date: "2025-01-18",
-    read: "11 分钟",
+    read: "11 min read",
     emoji: "👶",
     body: `<h2>The Reality of Infant Sleep</h2>
 <p>Newborn sleep bears little resemblance to adult sleep. Infants spend far more time in <strong>active (REM) sleep</strong> — which is why they startle easily and wake frequently. This is evolutionarily protective: deep sleep would suppress the immature infant respiratory system.</p>
@@ -212,7 +234,7 @@ const articles = {
     tag: "Sleep Sounds",
     title: "Pink Noise vs. White Noise: What the Research Says",
     date: "2025-01-25",
-    read: "6 分钟",
+    read: "6 min read",
     emoji: "🎵",
     body: `<h2>The Problem with White Noise</h2>
 <p>White noise contains equal energy across all frequencies — it sounds like harsh static. While it effectively masks external sounds, research suggests it may interfere with <strong>deep sleep</strong> by keeping the brain in a mildly alert state.</p>
@@ -231,7 +253,7 @@ const articles = {
     tag: "Relaxation Technique",
     title: "The 4-7-8 Breathing Method: A Natural Tranquilizer",
     date: "2025-02-01",
-    read: "5 分钟",
+    read: "5 min read",
     emoji: "🫁",
     body: `<h2>What Is 4-7-8 Breathing?</h2>
 <p>Developed by Dr. Andrew Weil, the 4-7-8 technique is rooted in <strong>pranayama</strong> (yogic breath regulation). It works by forcing your nervous system to shift from sympathetic (fight-or-flight) dominance to parasympathetic (rest-and-digest) dominance.</p>
@@ -254,7 +276,7 @@ const articles = {
     tag: "Neuroscience",
     title: "What's Happening Inside the Insomniac Brain?",
     date: "2025-02-10",
-    read: "8 分钟",
+    read: "8 min read",
     emoji: "🧠",
     body: `<h2>Hyperarousal: The Core Problem</h2>
 <p>Insomnia is not simply "not being tired enough" — it is a state of <strong>chronic hyperarousal</strong> of the central nervous system. Even when sleep-deprived, insomnia patients show:</p>
@@ -278,7 +300,7 @@ const articles = {
     tag: "Sleep Environment",
     title: "Optimizing Your Sleep Environment: The Complete Checklist",
     date: "2025-02-18",
-    read: "7 分钟",
+    read: "7 min read",
     emoji: "🏠",
     body: `<h2>Temperature: The #1 Factor</h2>
 <p>Your core body temperature must <strong>drop by about 1&deg;C</strong> to initiate and maintain deep sleep. An overly warm room (>21&deg;C) fragments sleep and suppresses melatonin.</p>
@@ -302,7 +324,7 @@ const articles = {
     tag: "Sleep Technique",
     title: "The Hot Bath Effect: How Warming Up Helps You Fall Asleep Faster",
     date: "2025-02-25",
-    read: "5 分钟",
+    read: "5 min read",
     emoji: "🛁",
     body: `<h2>The Science</h2>
 <p>Taking a <strong>40–42°C bath or shower for 10–15 minutes, 1–2 hours before bedtime</strong>, significantly improves sleep onset and deep sleep. Why? It is all about the <strong>post-bath cool-down</strong>.</p>
@@ -327,7 +349,7 @@ const articles = {
     tag: "Traditional Chinese Medicine",
     title: "TCM on Sleep: The Meridian Clock & Ancient Wellness Wisdom",
     date: "2025-03-01",
-    read: "8 分钟",
+    read: "8 min read",
     emoji: "🏮",
     body: `<h2>The Meridian Clock (Zi Wu Liu Zhu) and Sleep</h2>
 <p>In Traditional Chinese Medicine, the flow of qi through the twelve meridians follows a fixed daily rhythm known as the <strong>Meridian Clock (Zi Wu Liu Zhu)</strong>. The nighttime organ schedule directly shapes sleep quality:</p>
@@ -362,7 +384,7 @@ function renderArticle() {
   const container = document.getElementById("article-content");
 
   if (!id || !articles[id]) {
-    container.innerHTML = '<div class="error-msg"><div class="emoji">😴</div><p>Sorry, article not found.<br><a href="science.html" style="color:#6b4ce6;text-decoration:none;font-weight:600;">← Back to Science</a></p></div>';
+    container.innerHTML = '<div class="error-msg"><div class="emoji">😴</div><p>Sorry, article not found.<br><a href="science.html" style="color:var(--clr-sage-deep);text-decoration:none;font-weight:600;">← Back to Science</a></p></div>';
     return;
   }
 
@@ -375,17 +397,42 @@ function renderArticle() {
     <h1 class="article-title">${a.emoji} ${a.title}</h1>
     <div class="article-meta">
       <span>📅 ${a.date}</span>
-      <span>⏱️ ${a.read} read</span>
+      <span>⏱️ ${a.read}</span>
     </div>
     <div class="article-body">${a.body}</div>
     <div class="article-footer">
-      <a href="science.html">← Back to Science</a>
-      <a href="index.html">Home →</a>
+      <a href="science.html" class="btn btn-outline">← Back to Science</a>
+      <a href="index.html" class="btn btn-sage">Home →</a>
     </div>
   `;
 }
 
 renderArticle();
 </script>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="logo-main">SleepWell Studio</div><p>Science-backed sleep wellness for a calmer, more restorative life.</p></div>
+      <div class="footer-links"><h4>Explore</h4><a href="science.html">Sleep Science</a><a href="music.html">Sound Library</a><a href="food.html">Wellness Diet</a><a href="shop.html">Shop</a><a href="videos.html">🎬 Videos</a></div>
+      <div class="footer-links"><h4>Company</h4><a href="about.html">About Us</a><a href="disclaimer.html">Disclaimer</a><a href="privacy.html">Privacy Policy</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 SleepWell Studio. All rights reserved.</span><span>Content from IMA Knowledge Bases · For Wellness Education Only</span></div>
+  </div>
+</footer>
+
+<div class="ai-chat-fab">
+  <div class="ai-chat-window">
+    <div class="chat-header"><div class="chat-header-icon">🌿</div><div class="chat-header-text"><div class="name">Mianshi · AI Sleep Coach</div><div class="status">Powered by Qwen + IMA Knowledge Bases</div></div></div>
+    <div class="chat-messages"></div>
+    <div style="padding:0.5rem;background:#F8F7F5;font-size:0.68rem;color:#AAA;text-align:center;">For reference only. Not medical advice.</div>
+    <div class="chat-input-area"><input type="text" placeholder="Ask about sleep, wellness…"/><button class="chat-send-btn"><svg viewBox="0 0 16 16"><path d="M2 8L14 2l-2 12-4-4-6 2z"/></svg></button></div>
+  </div>
+  <button class="ai-chat-btn" title="AI Sleep Coach"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg></button>
+</div>
+
+<script src="shared/js/auth.js"></script>
+<script src="shared/js/auth-ui.js"></script>
+<script src="shared/js/main.js"></script>
 </body>
 </html>
