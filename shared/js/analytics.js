@@ -13,8 +13,11 @@
 (function () {
   'use strict';
 
-  const BAIDU_ID = window.BAIDU_TONGJI_ID || '';
-  const GA4_ID = window.GA4_MEASUREMENT_ID || '';
+  const BAIDU_ID_RE = /^[0-9a-z]{16,32}$/i;   // 百度统计 ID 为 32 位 hex/字母
+  const GA4_ID_RE = /^G-[A-Z0-9]{6,12}$/;      // GA4 Measurement ID
+  const BAIDU_ID = BAIDU_ID_RE.test((window.BAIDU_TONGJI_ID || '').trim()) ? window.BAIDU_TONGJI_ID.trim() : '';
+  const GA4_ID = GA4_ID_RE.test((window.GA4_MEASUREMENT_ID || '').trim()) ? window.GA4_MEASUREMENT_ID.trim() : '';
+  // 占位符/空值直接跳过，避免向统计平台发起脏请求（2026-09-08）
 
   // ==================== 百度统计 ====================
   if (BAIDU_ID) {
