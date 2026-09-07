@@ -9,6 +9,12 @@
   <meta property="og:description" content="Science-backed sleep wellness platform with expert content, sleep music, and AI coach.">
   <meta property="og:type" content="website">
   <title>SleepWell Studio — Sleep Naturally, Live Fully</title>
+<link rel="canonical" href="https://lianglinyuan666-ai.github.io/sleep-wellness-global/index.html">
+<meta property="og:title" content="SleepWell Studio — Sleep Naturally, Live Fully">
+<meta property="og:description" content="SleepWell Studio — Sleep Naturally, Live Fully">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://lianglinyuan666-ai.github.io/sleep-wellness-global/index.html">
+<meta property="og:site_name" content="SleepWell Studio">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -62,7 +68,7 @@
     .shop-name { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.25rem; }
     .shop-desc { font-size: 0.78rem; color: var(--clr-text-muted); margin-bottom: 0.75rem; line-height: 1.5; }
     .shop-price { font-family: var(--font-display); font-size: 1.2rem; color: var(--clr-night); font-weight: 600; }
-    .shop-action { width: 100%; text-align: center; padding: 0.6rem; background: var(--clr-night); color: white; font-size: 0.8rem; font-weight: 600; border-radius: 0 0 var(--radius-lg) var(--radius-lg); transition: var(--transition); display: block; }
+    .shop-action { width: 100%; box-sizing: border-box; text-align: center; padding: 0.6rem; background: var(--clr-night); color: white; font-size: 0.8rem; font-weight: 600; border-radius: 0 0 var(--radius-lg) var(--radius-lg); transition: var(--transition); display: block; }
     .shop-action:hover { background: var(--clr-moss); }
 
     /* PayPal section */
@@ -78,7 +84,10 @@
     @media (max-width: 1024px) { .features-grid { grid-template-columns: 1fr 1fr; } .blog-grid { grid-template-columns: 1fr 1fr; } .shop-grid { grid-template-columns: 1fr 1fr; } .audio-grid { grid-template-columns: 1fr; } }
     @media (max-width: 768px) { .hero { grid-template-columns: 1fr; min-height: auto; padding-bottom: var(--space-xl); } .hero-visual { display: none; } .hero-content { padding: calc(var(--nav-h) + var(--space-xl)) var(--space-md) var(--space-xl); } .features-grid { grid-template-columns: 1fr; } .blog-grid { grid-template-columns: 1fr; } .shop-grid { grid-template-columns: 1fr 1fr; } .qwen-grid { grid-template-columns: 1fr; } }
     @media (max-width: 480px) { .shop-grid { grid-template-columns: 1fr; } .hero-stats { flex-direction: column; gap: var(--space-sm); } }
-  </style>
+      /* mobile safety: 防止音频卡 nowrap 标题把 1fr 轨道撑出视口 (2026-09-08) */
+    .audio-card { min-width: 0; }
+    .audio-info { min-width: 0; }
+</style>
   <!-- Analytics -->
   <script>window.GA4_MEASUREMENT_ID='G-NCY473QPD1';</script>
   <script src="shared/js/analytics.js"></script>
@@ -219,7 +228,7 @@
           <div style="display:flex;gap:0.5rem;margin-bottom:0.75rem;"><span class="tag tag-sage">Sleep Science</span><span class="tag">5 min read</span></div>
           <h3 class="heading-h3" style="margin-bottom:0.5rem;">Why Deep Sleep Is Your Body's Reset Button</h3>
           <p style="font-size:0.85rem;color:var(--clr-text-secondary);line-height:1.7;margin-bottom:1rem;">During N3 deep sleep, your brain clears metabolic waste, consolidates memories, and your immune system strengthens…</p>
-          <div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:0.75rem;color:var(--clr-text-muted);">May 28, 2026</span><a href="article.html?id=glymphatic-research" style="font-size:0.82rem;font-weight:600;color:var(--clr-sage-deep);">Read More →</a></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:0.75rem;color:var(--clr-text-muted);">May 28, 2026</span><a href="science.html" style="font-size:0.82rem;font-weight:600;color:var(--clr-sage-deep);">Read More →</a></div>
         </div>
       </article>
       <article class="card reveal">
@@ -228,7 +237,7 @@
           <div style="display:flex;gap:0.5rem;margin-bottom:0.75rem;"><span class="tag tag-lavender">Wellness</span><span class="tag">8 min read</span></div>
           <h3 class="heading-h3" style="margin-bottom:0.5rem;">5 Traditional Herbal Teas for a Calmer Night</h3>
           <p style="font-size:0.85rem;color:var(--clr-text-secondary);line-height:1.7;margin-bottom:1rem;">From chamomile to longan and lotus seed brew, these time-honored herbal preparations help ease your mind into sleep…</p>
-          <div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:0.75rem;color:var(--clr-text-muted);">May 25, 2026</span><a href="article.html?id=tcm-sleep" style="font-size:0.82rem;font-weight:600;color:var(--clr-sage-deep);">Read More →</a></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:0.75rem;color:var(--clr-text-muted);">May 25, 2026</span><a href="science.html" style="font-size:0.82rem;font-weight:600;color:var(--clr-sage-deep);">Read More →</a></div>
         </div>
       </article>
       <article class="card reveal">
@@ -237,7 +246,7 @@
           <div style="display:flex;gap:0.5rem;margin-bottom:0.75rem;"><span class="tag tag-blush">Lifestyle</span><span class="tag">6 min read</span></div>
           <h3 class="heading-h3" style="margin-bottom:0.5rem;">The 21-Day Circadian Rhythm Reset Challenge</h3>
           <p style="font-size:0.85rem;color:var(--clr-text-secondary);line-height:1.7;margin-bottom:1rem;">A disrupted body clock is the root of most modern sleep problems. This structured 21-day plan helps you rebuild…</p>
-          <div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:0.75rem;color:var(--clr-text-muted);">May 20, 2026</span><a href="article.html?id=circadian" style="font-size:0.82rem;font-weight:600;color:var(--clr-sage-deep);">Read More →</a></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:0.75rem;color:var(--clr-text-muted);">May 20, 2026</span><a href="science.html" style="font-size:0.82rem;font-weight:600;color:var(--clr-sage-deep);">Read More →</a></div>
         </div>
       </article>
     </div>
