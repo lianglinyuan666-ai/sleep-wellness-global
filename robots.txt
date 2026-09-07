@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lianglinyuan666-ai.github.io/sleep-wellness-global/sitemap.xml
