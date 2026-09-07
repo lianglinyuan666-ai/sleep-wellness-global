@@ -140,10 +140,14 @@ const QWEN_SYSTEM_PROMPT = `你是一位专业的睡眠与养生健康顾问助�
 8. 如有参考知识库内容，可以自然地提及"来自专业知识库的建议"`;
 
 const QWEN_API_URL = 'https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation';
-// 通义千问 DashScope API Key
-const QWEN_API_KEY = window.QWEN_API_KEY || 'sk-063375f955b4451ea6181fc1fa61de24';
+// 通义千问 DashScope API Key —— 仅由构建时注入（window.QWEN_API_KEY），
+// 源码与制品中不再硬编码明文密钥；未配置时 AI 功能优雅关闭。
+const QWEN_API_KEY = window.QWEN_API_KEY;
 
 async function callQwenAPI(messages) {
+  if (!window.QWEN_API_KEY) {
+    return 'AI 科普助手暂未配置，请稍后再试，或联系站点管理员。';
+  }
   // 获取最后一条用户消息，搜索 IMA 知识库
   const lastUserMsg = [...messages].reverse().find(m => m.role === 'user');
   let imaContext = '';
