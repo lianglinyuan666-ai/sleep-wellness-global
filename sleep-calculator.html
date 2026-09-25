@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free sleep cycle calculator: plan bedtime and wake-up time around 90-minute cycles and a 15-minute sleep latency, and wake up refreshed.">
+<title>Sleep Calculator — SleepWell Studio</title>
+<link rel="canonical" href="https://lianglinyuan666-ai.github.io/sleep-wellness-global/about.html">
+<meta property="og:title" content="About Us — Mian Jing · Sleep &amp; Wellness">
+<meta property="og:description" content="About Us">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://lianglinyuan666-ai.github.io/sleep-wellness-global/about.html">
+<meta property="og:site_name" content="SleepWell Studio">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared/css/design-system.css">
+  <style>
+    .about-hero { text-align:center; padding:var(--space-2xl) var(--space-md); background:linear-gradient(135deg, #F5F2EE 0%, #EDE8E1 50%, #E3DED6 100%); }
+    .about-hero h1 { font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,5vw,3.5rem); font-weight:700; color:var(--clr-sage-deep); margin-bottom:0.5rem; }
+    .about-hero p { color:var(--clr-text-secondary); max-width:600px; margin:0 auto; font-size:0.95rem; line-height:1.7; }
+    .about-section { padding:var(--space-2xl) var(--space-md); max-width:800px; margin:0 auto; }
+    .about-section h2 { font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:700; color:var(--clr-sage-deep); margin-bottom:1rem; padding-bottom:0.5rem; border-bottom:2px solid var(--clr-sand); }
+    .about-section p, .about-section li { color:var(--clr-text-secondary); font-size:0.9rem; line-height:1.9; }
+    .contact-card { background:var(--clr-bg-card); border-radius:var(--radius-lg); padding:var(--space-lg); box-shadow:var(--shadow-sm); margin-top:1rem; display:flex; flex-direction:column; gap:0.75rem; }
+    .contact-row { display:flex; align-items:center; gap:0.75rem; }
+    .contact-icon { font-size:1.4rem; width:2.5rem; height:2.5rem; display:flex; align-items:center; justify-content:center; background:var(--clr-bg-section); border-radius:var(--radius-md); flex-shrink:0; }
+    .contact-text { font-size:0.9rem; color:var(--clr-text-secondary); }
+    .contact-text strong { color:var(--clr-text-primary); display:block; margin-bottom:0.15rem; font-size:0.85rem; }
+    .contact-text a { color:var(--clr-sage-deep); text-decoration:none; font-weight:500; }
+    .contact-text a:hover { text-decoration:underline; }
+    .values-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:1rem; margin-top:1rem; }
+    .value-card { background:var(--clr-bg-card); border-radius:var(--radius-md); padding:1.25rem; text-align:center; box-shadow:var(--shadow-sm); }
+    .value-card .v-icon { font-size:2rem; margin-bottom:0.5rem; }
+    .value-card h4 { font-weight:600; font-size:0.95rem; margin-bottom:0.35rem; }
+    .value-card p { font-size:0.78rem; color:var(--clr-text-muted); line-height:1.6; }
+  </style>
+  <!-- Analytics -->
+  <script>window.GA4_MEASUREMENT_ID='G-NCY473QPD1';</script>
+  <script src="shared/js/analytics.js"></script>
+
+  <style>
+    .calc-card { background:var(--clr-bg-card); border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); max-width:720px; margin:0 auto var(--space-xl); padding:var(--space-lg); }
+    .calc-tabs { display:flex; gap:0.5rem; margin-bottom:1rem; }
+    .calc-tab { flex:1; padding:0.6rem 1rem; border:1.5px solid var(--clr-sand); background:transparent; border-radius:var(--radius-md); cursor:pointer; font-size:0.9rem; color:var(--clr-text-secondary); font-family:inherit; }
+    .calc-tab.active { background:var(--clr-sage-deep); color:#fff; border-color:var(--clr-sage-deep); }
+    .calc-hint { font-size:0.88rem; color:var(--clr-text-secondary); margin-bottom:0.9rem; line-height:1.7; }
+    .calc-body input[type="time"] { font-size:1.1rem; padding:0.5rem 0.8rem; border:1.5px solid var(--clr-sand); border-radius:var(--radius-md); margin-right:0.75rem; font-family:inherit; color:var(--clr-text-primary); }
+    .calc-results { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:0.75rem; margin-top:1.1rem; }
+    .result-card { background:var(--clr-bg-section); border-radius:var(--radius-md); padding:0.85rem 0.5rem; text-align:center; }
+    .result-card .r-time { font-size:1.35rem; font-weight:700; color:var(--clr-sage-deep); font-variant-numeric:tabular-nums; }
+    .result-card .r-cycles { font-size:0.78rem; color:var(--clr-text-secondary); margin-top:0.2rem; }
+    .result-card .r-badge { display:inline-block; font-size:0.7rem; padding:0.1rem 0.5rem; border-radius:999px; background:var(--clr-sage-deep); color:#fff; margin-top:0.4rem; }
+    .result-card.recommended { outline:2px solid var(--clr-sage-deep); }
+    .calc-note { font-size:0.75rem; color:var(--clr-text-secondary); margin-top:1rem; line-height:1.6; }
+    .calc-knowledge { max-width:720px; margin:0 auto var(--space-xl); padding:0 var(--space-md); }
+    .calc-knowledge h2 { font-family:'Cormorant Garamond',serif; font-size:1.4rem; font-weight:700; color:var(--clr-sage-deep); margin:1.5rem 0 0.7rem; padding-bottom:0.4rem; border-bottom:2px solid var(--clr-sand); }
+    .calc-knowledge p, .calc-knowledge li { color:var(--clr-text-secondary); font-size:0.9rem; line-height:1.9; }
+    .calc-faq { background:var(--clr-bg-card); border-radius:var(--radius-lg); padding:var(--space-lg); box-shadow:var(--shadow-sm); }
+    .calc-faq h3 { font-size:0.98rem; color:var(--clr-text-primary); margin:0.9rem 0 0.3rem; }
+    .calc-faq p { font-size:0.86rem; }
+  </style>
+  <!-- zc-jsonld -->
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Why do I still feel groggy after 8 hours of sleep?", "acceptedAnswer": {"@type": "Answer", "text": "Sleep quality depends on completing full sleep cycles, not just total hours. Waking mid-deep-sleep leaves you groggy even after enough rest. Planning around 90-minute cycles helps you wake at a cycle boundary."}}, {"@type": "Question", "name": "Should I keep a fixed bedtime or a fixed wake time?", "acceptedAnswer": {"@type": "Answer", "text": "Prioritize a fixed wake time. Your circadian rhythm responds strongly to morning light and consistency; bedtime will naturally shift earlier once wake time is anchored."}}, {"@type": "Question", "name": "How can I fall asleep faster?", "acceptedAnswer": {"@type": "Answer", "text": "Dim lights and avoid screens an hour before bed, keep the bedroom cool and quiet, and build a consistent wind-down routine such as warm baths, soft music, or reading a paper book."}}]}
+  </script>
+</head>
+<body>
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><span class="logo-main">Mian Jing</span><span class="logo-sub">Sleep & Wellness</span></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="sleep-calculator.html">Sleep Calculator</a><a href="science.html">Sleep Science</a>
+      <a href="music.html">Sound Library</a>
+      <a href="shop.html">Shop</a>
+      <a href="ai-assistant.html" class="nav-ai">🤖 AI Coach</a>
+      <a href="about.html" class="active">About</a>
+    </div>
+    <div class="nav-actions"><div class="nav-burger" id="navBurger"><span></span><span></span><span></span></div></div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="sleep-calculator.html">⏰ Sleep Calculator</a>
+  <a href="index.html">🏠 Home</a><a href="science.html">🔬 Science</a><a href="music.html">🎵 Sound</a>
+  <a href="shop.html">🛍 Shop</a><a href="ai-assistant.html">🤖 AI Coach</a><a href="about.html">💬 About</a>
+</div>
+
+<div class="about-hero">
+      <h1>Sleep Calculator</h1>
+      <p>Plan bedtime and wake-up around 90-minute sleep cycles — wake up at the right phase, not mid-deep-sleep.</p>
+    </div>
+
+
+<div class="calc-wrap">
+  <div class="calc-card">
+    <div class="calc-tabs">
+      <button class="calc-tab active" data-mode="now">I'm going to bed now</button>
+      <button class="calc-tab" data-mode="wake">Set a wake-up time</button>
+    </div>
+    <div class="calc-body">
+      <div id="modeNow" class="mode-panel">
+        <p class="calc-hint">Click to see the best wake-up times if you fall asleep right now.</p>
+        <button class="btn btn-sage" id="btnNow">Calculate wake-up times</button>
+      </div>
+      <div id="modeWake" class="mode-panel" style="display:none">
+        <p class="calc-hint">Pick your target wake-up time and get recommended bedtime windows.</p>
+        <input type="time" id="wakeTime" value="07:00">
+        <button class="btn btn-sage" id="btnWake">Calculate bedtimes</button>
+      </div>
+    </div>
+    <div class="calc-results" id="calcResults"></div>
+    <p class="calc-note">* Estimates assume a 15-minute sleep latency and 90-minute cycles (3-6 cycles). Individual needs vary; not medical advice.</p>
+  </div>
+</div>
+
+
+
+<section class="calc-knowledge">
+  <h2>What is a sleep cycle?</h2>
+  <p>An adult sleep cycle lasts roughly 90 minutes and moves through light sleep, deep sleep, and REM. Deep sleep drives physical recovery and immune repair, while REM supports memory consolidation and emotional regulation. Waking at the end of a cycle — in the lightest phase — feels dramatically easier than being yanked out of deep sleep.</p>
+  <h2>How to use the sleep calculator</h2>
+  <p>Two modes: <strong>"I'm going to bed now"</strong> — instantly see the best wake-up times from now on; <strong>"Set a wake-up time"</strong> — enter when you must get up and get recommended bedtime windows. Aim for 5 cycles (~7.5 h) as a baseline, or 6 cycles (~9 h) when you can.</p>
+  <h2>FAQ</h2>
+  <div class="calc-faq">
+    <h3>Why do I still feel groggy after 8 hours of sleep?</h3>
+    <p>Sleep quality depends on completing full sleep cycles, not just total hours. Waking mid-deep-sleep leaves you groggy even after enough rest. Plan around 90-minute cycles to wake at a cycle boundary.</p>
+    <h3>Should I keep a fixed bedtime or a fixed wake time?</h3>
+    <p>Prioritize a fixed wake time. Your circadian rhythm responds strongly to morning light and consistency; bedtime will naturally shift earlier once wake time is anchored.</p>
+    <h3>How can I fall asleep faster?</h3>
+    <p>Dim lights and avoid screens an hour before bed, keep the bedroom cool and quiet, and build a consistent wind-down routine such as warm baths, soft music, or reading a paper book.</p>
+  </div>
+</section>
+
+
+<!-- GZH-PROMO-START -->
+<div style="max-width:1120px;margin:0 auto;padding:16px 20px 6px;display:flex;align-items:center;gap:14px;">
+  <img src="shared/assets/gzh_qr.jpg" alt="WeChat QR" width="84" height="84" loading="lazy" style="border-radius:8px;flex:0 0 auto;background:#fff;padding:3px;">
+  <div style="font-size:0.92rem;line-height:1.75;opacity:0.92;">
+    <strong>微信公众号「梁林源」· Sleep Research Briefs</strong><br>Daily, science-backed sleep tips — in Chinese, on WeChat.<br><span style="opacity:0.75;">Scan with WeChat to follow.</span>
+  </div>
+</div>
+<!-- GZH-PROMO-END -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="logo-main">Mian Jing</div><p>Sleep & Wellness — naturally.</p></div>
+      <div class="footer-links"><h4>Explore</h4><a href="science.html">Sleep Science</a><a href="music.html">Sound Library</a><a href="shop.html">Shop</a></div>
+      <div class="footer-links"><h4>AI Services</h4><a href="ai-assistant.html">AI Sleep Coach</a></div>
+      <div class="footer-links"><h4>Company</h4><a href="about.html">About Us</a><a href="disclaimer.html">Disclaimer</a><a href="privacy.html">Privacy Policy</a><a href="https://33a6774f417a40148be76feca4a4cfc6.app.codebuddy.work/">🇨🇳 中文版</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 Mian Jing · Sleep & Wellness. All rights reserved.</span></div>
+  </div>
+</footer>
+
+<div class="disclaimer-banner" style="display:flex;justify-content:center;gap:2rem;position:fixed;bottom:0;left:0;right:0;background:var(--clr-bg-card);padding:0.4rem 1rem;font-size:0.72rem;color:var(--clr-text-muted);z-index:1000;border-top:1px solid var(--clr-sand);">
+  <span>Content for informational purposes only. Not medical advice.</span>
+  <a href="disclaimer.html" style="color:var(--clr-sage-deep);">Disclaimer</a>
+  <a href="privacy.html" style="color:var(--clr-sage-deep);">Privacy Policy</a>
+</div>
+
+<script src="shared/js/auth.js"></script>
+<script src="shared/js/auth-ui.js"></script>
+<script src="shared/js/main.js"></script>
+<script>
+  document.getElementById('navBurger').addEventListener('click', function() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+    this.classList.toggle('open');
+  });
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.about-section').forEach(el => observer.observe(el));
+</script>
+
+<script>
+(function () {
+  var CYCLE = 90, LATENCY = 15;
+  var LABELS = {"6": "Deep rest", "5": "Recommended", "4": "Compact", "3": "Minimum"};
+  var fmt = function (d) {
+    return String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0");
+  };
+  var render = function (items) {
+    var box = document.getElementById("calcResults");
+    box.innerHTML = items.map(function (it) {
+      return '<div class="result-card' + (it.rec ? " recommended" : "") + '">' +
+        '<div class="r-time">' + it.time + "</div>" +
+        '<div class="r-cycles">' + it.cycles + "</div>" +
+        (it.badge ? '<span class="r-badge">' + it.badge + "</span>" : "") +
+        "</div>";
+    }).join("");
+  };
+  var modeNow = function () {
+    var now = new Date();
+    var out = [];
+    for (var n = 6; n >= 3; n--) {
+      var t = new Date(now.getTime() + (LATENCY + CYCLE * n) * 60000);
+      out.push({ time: fmt(t), cycles: n, badge: LABELS[String(n)], rec: n === 5 || n === 6 });
+    }
+    render(out);
+  };
+  var modeWake = function () {
+    var v = document.getElementById("wakeTime").value;
+    if (!v) return;
+    var parts = v.split(":");
+    var wake = new Date();
+    wake.setHours(+parts[0], +parts[1], 0, 0);
+    var out = [];
+    for (var n = 6; n >= 3; n--) {
+      var t = new Date(wake.getTime() - (LATENCY + CYCLE * n) * 60000);
+      out.push({ time: fmt(t), cycles: n, badge: LABELS[String(n)], rec: n === 5 });
+    }
+    render(out);
+  };
+  document.querySelectorAll(".calc-tab").forEach(function (tab) {
+    tab.addEventListener("click", function () {
+      document.querySelectorAll(".calc-tab").forEach(function (t) { t.classList.remove("active"); });
+      tab.classList.add("active");
+      var now = tab.dataset.mode === "now";
+      document.getElementById("modeNow").style.display = now ? "" : "none";
+      document.getElementById("modeWake").style.display = now ? "none" : "";
+      document.getElementById("calcResults").innerHTML = "";
+    });
+  });
+  document.getElementById("btnNow").addEventListener("click", modeNow);
+  document.getElementById("btnWake").addEventListener("click", modeWake);
+})();
+</script>
+</body>
+</html>
